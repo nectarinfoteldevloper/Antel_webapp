@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support - AnTel</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .support-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: #f9f9f9;
+        }
+        .support-card .status-badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+        .status-badge.open { background-color: #ffc107; }
+        .status-badge.closed { background-color: green; }
+        .contact-info {
+            margin-top: 20px;
+        }
+        #noTicketsMessage {
+            text-align: center;
+            font-style: italic;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-logo"><div class="logo-placeholder">AnTel</div></div>
+            <div class="user-profile-summary">
+                <div class="profile-avatar">P</div>
+                <div class="profile-info">
+                    <span id="sidebarUserName"></span>
+                    <span id="sidebarUserMobile"></span>
+                    <span class="user-status">Prepaid</span>
+                </div>
+                <a href="#" class="add-profile-button button-link">add profile</a>
+                <div class="settings-icon button-link"><i class="fas fa-cog"></i></div>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="/dashboard.html" class="button-link"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="/my_account.html" class="button-link"><i class="fas fa-user-circle"></i> My Account</a></li>
+                <li><a href="/recharge_history.html" class="button-link"><i class="fas fa-history"></i> Recharge History</a></li>
+                <li><a href="/active_plans.html" class="button-link"><i class="fas fa-box-open"></i> Active Plans</a></li>
+                <li><a href="/bill_payments.html" class="button-link"><i class="fas fa-file-invoice-dollar"></i> Bill Payments</a></li>
+                <li><a href="/support.html" class="button-link active"><i class="fas fa-headset"></i> Support</a></li>
+                <li><a href="/rewards.html" class="button-link"><i class="fas fa-gift"></i> Rewards</a></li>
+                <li><a href="/my_devices.html" class="button-link"><i class="fas fa-mobile-alt"></i> My Devices</a></li>
+                <li><a href="/settings.html" class="button-link"><i class="fas fa-cog"></i> Settings</a></li>
+                <li><a href="#" id="logoutButton" class="button-link"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </aside>
+
+        <main class="dashboard-content">
+            <div class="dashboard-top-nav">
+                <h2>Support</h2>
+            </div>
+            <section class="page-content">
+                <div class="widget">
+                    <h3>Your Recent Tickets</h3>
+                    <div id="ticketsContainer">
+                        <p id="noTicketsMessage" style="display: none;">You have no recent support tickets.</p>
+                    </div>
+                </div>
+                <div class="widget contact-info">
+                    <h3>Contact Us</h3>
+                    <p><strong>Helpline Number:</strong> 1800-123-4567</p>
+                    <p><strong>Email:</strong> support@antel.in</p>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="./js/app.js"></script>
+</body>
+</html>

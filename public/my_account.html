@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account - AnTel</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .widget {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .widget h3 {
+            border-bottom: 2px solid var(--antel-orange);
+            padding-bottom: 10px;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+        .info-group p {
+            margin: 5px 0;
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-logo"><div class="logo-placeholder">AnTel</div></div>
+            <div class="user-profile-summary">
+                <div class="profile-avatar">P</div>
+                <div class="profile-info">
+                    <span id="sidebarUserName"></span>
+                    <span id="sidebarUserMobile"></span>
+                    <span class="user-status">Prepaid</span>
+                </div>
+                <a href="#" class="add-profile-button button-link">add profile</a>
+                <div class="settings-icon button-link"><i class="fas fa-cog"></i></div>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="/dashboard.html" class="button-link"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="/my_account.html" class="button-link active"><i class="fas fa-user-circle"></i> My Account</a></li>
+                <li><a href="/recharge_history.html" class="button-link"><i class="fas fa-history"></i> Recharge History</a></li>
+                <li><a href="/active_plans.html" class="button-link"><i class="fas fa-box-open"></i> Active Plans</a></li>
+                <li><a href="/bill_payments.html" class="button-link"><i class="fas fa-file-invoice-dollar"></i> Bill Payments</a></li>
+                <li><a href="/support.html" class="button-link"><i class="fas fa-headset"></i> Support</a></li>
+                <li><a href="/rewards.html" class="button-link"><i class="fas fa-gift"></i> Rewards</a></li>
+                <li><a href="/my_devices.html" class="button-link"><i class="fas fa-mobile-alt"></i> My Devices</a></li>
+                <li><a href="/settings.html" class="button-link"><i class="fas fa-cog"></i> Settings</a></li>
+                <li><a href="#" id="logoutButton" class="button-link"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </aside>
+        
+        <main class="dashboard-content">
+            <div class="dashboard-top-nav">
+                <h2>My Account</h2>
+            </div>
+            <section class="page-content">
+                <div class="widget">
+                    <h3>Account Details</h3>
+                    <div class="info-group">
+                        <p><strong>Name:</strong> <span id="accountUserName"></span></p>
+                        <p><strong>Mobile Number:</strong> <span id="accountUserMobile"></span></p>
+                        <p><strong>Email:</strong> <span id="accountUserEmail"></span></p>
+                        <p><strong>Service Type:</strong> <span id="accountUserServiceType"></span></p>
+                    </div>
+                </div>
+                <div class="widget">
+                    <h3>Communication Preferences</h3>
+                    <div class="info-group">
+                        <p><strong>SMS Alerts:</strong> <span id="smsAlertsStatus"></span></p>
+                        <p><strong>Email Notifications:</strong> <span id="emailNotificationStatus"></span></p>
+                        <p><strong>Promotional Offers:</strong> <span id="promoOffersStatus"></span></p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>  
+    <script src="./js/app.js"></script>
+</body>
+</html>

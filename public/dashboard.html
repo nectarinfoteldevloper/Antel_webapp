@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AnTel - Your Dashboard</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-logo"><div class="logo-placeholder">AnTel</div></div>
+            <div class="user-profile-summary">
+                <div class="profile-avatar">P</div>
+                <div class="profile-info">
+                    <span id="sidebarUserName">Rahul</span>
+                    <span id="sidebarUserMobile">1234567890</span>
+                    <span class="user-status">Prepaid</span>
+                </div>
+                <a href="#" class="add-profile-button button-link">add profile</a>
+                <div class="settings-icon button-link"><i class="fas fa-cog"></i></div>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="/dashboard.html" class="button-link active"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="/my_account.html" class="button-link"><i class="fas fa-user-circle"></i> My Account</a></li>
+                <li><a href="/recharge_history.html" class="button-link"><i class="fas fa-history"></i> Recharge History</a></li>
+                <li><a href="/active_plans.html" class="button-link"><i class="fas fa-box-open"></i> Active Plans</a></li>
+                <li><a href="/bill_payments.html" class="button-link"><i class="fas fa-file-invoice-dollar"></i> Bill Payments</a></li>
+                <li><a href="/support.html" class="button-link"><i class="fas fa-headset"></i> Support</a></li>
+                <li><a href="/rewards.html" class="button-link"><i class="fas fa-gift"></i> Rewards</a></li>
+                <li><a href="/my_devices.html" class="button-link"><i class="fas fa-mobile-alt"></i> My Devices</a></li>
+                <li><a href="/settings.html" class="button-link"><i class="fas fa-cog"></i> Settings</a></li>
+                <li><a href="#" id="logoutButton" class="button-link"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </aside>
+        <main class="dashboard-content">
+            <div class="dashboard-top-nav">
+                <a href="#" class="button-link">Get AnTel App</a>
+                <a href="#" class="button-link">Do not disturb</a>
+                <a href="#" class="button-link">Help</a>
+                <a href="#" class="button-link"><i class="fas fa-bars"></i></a>
+            </div>
+
+            <section class="top-promo-banner">
+                <div class="promo-text">
+                    <p>get 2GB with every utility bill payment</p>
+                    <button class="button small button-link">start paying</button>
+                </div>
+                <div class="promo-graphic">💰</div>
+            </section>
+
+            <div class="dashboard-grid-main">
+                <div class="data-call-summary">
+                    <div class="data-widget dashboard-widget button-link">
+                        <p class="data-metric" id="dataLeft">4.50GB</p>
+                        <p class="widget-content">Data Left</p>
+                    </div>
+                    <div class="calls-widget dashboard-widget button-link">
+                        <p class="data-metric" id="callStatus">truly unlimited calls</p>
+                    </div>
+                </div>
+
+                <div class="utility-icons-section dashboard-widget">
+                    <h3 class="widget-title">utilities <i class="fas fa-arrow-right"></i></h3>
+                    <div class="utility-icons">
+                        <div class="icon-item button-link"><i class="fas fa-bolt"></i><span>Electricity</span></div>
+                        <div class="icon-item button-link"><i class="fas fa-coins"></i><span>Loan Repayment</span></div>
+                        <div class="icon-item button-link"><i class="fas fa-id-card"></i><span>FASTag</span></div>
+                        <div class="icon-item button-link"><i class="fas fa-mobile-alt"></i><span>Mobile Postpaid</span></div>
+                        <div class="icon-item button-link"><i class="fas fa-wifi"></i><span>Broadband</span></div>
+                        <div class="icon-item button-link"><i class="fas fa-umbrella"></i><span>Insurance</span></div>
+                    </div>
+                </div>
+
+                <div class="pack-validity-section dashboard-widget">
+                    <p class="widget-content">Pack valid till <strong id="packValidity">25 Sep, 2025</strong></p>
+                    <div class="pack-actions">
+                        <button class="button small button-link pack-details-btn">pack details</button>
+                        <button class="button small button-link recharge-now-btn">recharge now</button>
+                    </div>
+                </div>
+
+                <div class="recharge-banner-bottom dashboard-widget">
+                    <div class="banner-content">
+                        <div class="logo-placeholder" style="color: var(--antel-orange); font-size: 2em; margin-bottom: 5px;">AnTel</div>
+                        <p>recharge with ₹1198</p>
+                        <p class="small-text">get <span style="color: green; font-weight: bold;">100GB</span> at no extra cost</p>
+                        <button class="button small button-link">recharge now</button>
+                    </div>
+                    <div class="banner-graphic">🚀</div>
+                </div>
+
+                <div class="unlimited-data-promo dashboard-widget">
+                    <div>
+                        <p>unlimited data from <span>12AM - 12PM</span></p>
+                        <p class="small-text">starting at only ₹385</p>
+                        <a href="#" class="button-link">recharge now <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <div class="promo-graphic">💡</div>
+                </div>
+
+                <div class="dashboard-detailed-sections">
+                    <div class="dashboard-widget button-link">
+                        <h3 class="widget-title"><i class="fas fa-history"></i> Recharge History</h3>
+                        <p>View your recharge history</p>
+                        <a href="#" class="button-link"><i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <div class="dashboard-widget button-link">
+                        <h3 class="widget-title"><i class="fas fa-box-open"></i> Active packs & services</h3>
+                        <p>Check your active pack details and benefits</p>
+                        <a href="#" class="button-link"><i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <div class="dashboard-widget button-link">
+                        <h3 class="widget-title"><i class="fas fa-star"></i> Requests & complaints</h3>
+                        <p>Track the status of your service requests</p>
+                        <a href="#" class="button-link"><i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="./js/app.js"></script>
+</body>
+</html>

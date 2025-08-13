@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recharge History - AnTel</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .recharge-history-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .recharge-history-table th, .recharge-history-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        .recharge-history-table th {
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .recharge-history-table tbody tr:hover {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-logo"><div class="logo-placeholder">AnTel</div></div>
+            <div class="user-profile-summary">
+                <div class="profile-avatar">P</div>
+                <div class="profile-info">
+                    <span id="sidebarUserName"></span>
+                    <span id="sidebarUserMobile"></span>
+                    <span class="user-status">Prepaid</span>
+                </div>
+                <a href="#" class="add-profile-button button-link">add profile</a>
+                <div class="settings-icon button-link"><i class="fas fa-cog"></i></div>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="/dashboard.html" class="button-link"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="/my_account.html" class="button-link"><i class="fas fa-user-circle"></i> My Account</a></li>
+                <li><a href="/recharge_history.html" class="button-link active"><i class="fas fa-history"></i> Recharge History</a></li>
+                <li><a href="/active_plans.html" class="button-link"><i class="fas fa-box-open"></i> Active Plans</a></li>
+                <li><a href="/bill_payments.html" class="button-link"><i class="fas fa-file-invoice-dollar"></i> Bill Payments</a></li>
+                <li><a href="/support.html" class="button-link"><i class="fas fa-headset"></i> Support</a></li>
+                <li><a href="/rewards.html" class="button-link"><i class="fas fa-gift"></i> Rewards</a></li>
+                <li><a href="/my_devices.html" class="button-link"><i class="fas fa-mobile-alt"></i> My Devices</a></li>
+                <li><a href="/settings.html" class="button-link"><i class="fas fa-cog"></i> Settings</a></li>
+                <li><a href="#" id="logoutButton" class="button-link"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </aside>
+        
+        <main class="dashboard-content">
+            <div class="dashboard-top-nav">
+                <h2>Recharge History</h2>
+            </div>
+            <section class="page-content">
+                <div class="widget">
+                    <h3>Last 5 Recharges</h3>
+                    <table class="recharge-history-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Amount</th>
+                                <th>Plan</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rechargeHistoryTableBody">
+                            </tbody>
+                    </table>
+                    <p id="noRechargesMessage" style="text-align: center; display: none;">No recharge history found.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="./js/app.js"></script>
+</body>
+</html>

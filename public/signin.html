@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AnTel - Sign In</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <div class="signin-page-wrapper">
+        <div class="signin-content">
+            <div class="signin-image-section">
+                <div class="logo" style="position: absolute; top: 20px; left: 20px;"><div class="logo-placeholder" style="color: white; filter: none;">AnTel</div></div>
+                <h1>One place to manage all your plans and payments</h1>
+                <p>Seamlessly manage your AnTel mobile and broadband services.</p>
+            </div>
+            <div class="signin-form-section">
+                <h2 id="formTitle">Sign In to AnTel</h2>
+                
+                <form class="auth-form" id="loginForm">
+                    <div class="form-group">
+                        <label for="mobileNumber">AnTel mobile number</label>
+                        <input type="text" id="mobileNumber" name="mobileNumber" placeholder="Enter your mobile number" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                    </div>
+                    <p class="toggle-form-link" style="margin-top: 15px;">
+                        Don't have an AnTel SIM? <a href="#" id="toggleAuthMode">Get a new one</a>
+                    </p>
+                    <div class="signin-buttons">
+                        <button type="submit" class="button">Log In</button>
+                    </div>
+                </form>
+
+                <form class="auth-form" id="getSimForm" style="display: none;">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="dob">Date of Birth</label>
+                        <input type="date" id="dob" name="dob" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="aadharPhoto">Upload Aadhar Card Photo</label>
+                        <input type="file" id="aadharPhoto" name="aadharPhoto" accept="image/*" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="livePhoto">Take a Live Photo</label>
+                        <input type="file" id="livePhoto" name="livePhoto" accept="image/*" capture="user" required>
+                    </div>
+                    <div class="signin-buttons">
+                        <button type="submit" class="button">Proceed</button>
+                    </div>
+                    <p class="toggle-form-link" style="margin-top: 15px;">
+                        <span id="toggleText">Already have an account?</span> <a href="#" id="toggleAuthModeSim">Log In</a>
+                    </p>
+                </form>
+
+                <p class="error-message" id="errorMessage" style="display: none;"></p>
+
+                <div class="download-app-section">
+                    <div class="qr-code-placeholder button-link">
+                        Scan for App <br> (QR Code)
+                    </div>
+                    <p>download AnTel app now</p>
+                    <p>Scan the QR code with your mobile to download the app.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="./js/app.js"></script>
+    <script>
+        // Frontend logic to switch between login and get sim forms
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginForm = document.getElementById('loginForm');
+            const getSimForm = document.getElementById('getSimForm');
+            const toggleAuthModeLink = document.getElementById('toggleAuthMode');
+            const toggleAuthModeSimLink = document.getElementById('toggleAuthModeSim');
+            const formTitle = document.getElementById('formTitle');
+
+            // Event listener to switch from login to get sim form
+            if (toggleAuthModeLink) {
+                toggleAuthModeLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    loginForm.style.display = 'none';
+                    getSimForm.style.display = 'block';
+                    formTitle.textContent = 'Get a New AnTel SIM';
+                });
+            }
+
+            // Event listener to switch back to login form
+            if (toggleAuthModeSimLink) {
+                toggleAuthModeSimLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    getSimForm.style.display = 'none';
+                    loginForm.style.display = 'block';
+                    formTitle.textContent = 'Sign In to AnTel';
+                });
+            }
+
+            // Dummy form submission for the Get SIM form
+            if (getSimForm) {
+                getSimForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    alert('Your request for a new SIM has been submitted! Our team will contact you shortly.');
+                    // You can add more dummy logic here, like clearing the form.
+                    getSimForm.reset();
+                });
+            }
+        });
+    </script>
+</body>
