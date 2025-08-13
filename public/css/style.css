@@ -1344,3 +1344,398 @@ a:hover {
         grid-template-columns: 1fr; /* Stack detailed sections */
     }
 }
+/*index.html8*/
+
+/* General Styles */
+:root {
+    --primary-color: #E20074; /* VI Red/Pink */
+    --secondary-color: #0B2335; /* VI Dark Blue */
+    --logo-color: #FF7B00; /* Orange */
+    --light-grey: #F5F5F5;
+    --medium-grey: #CCC;
+    --text-color: #333;
+    --white: #fff;
+    --red: #E7002C; /* A deeper red for buttons */
+    --plan-highlight: #fffbe6;
+}
+
+body {
+    font-family: 'Open Sans', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--white);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+h1, h2, h3, h4 {
+    margin: 0;
+    font-weight: 700;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Header */
+.vi-header {
+    background-color: var(--white);
+    border-bottom: 1px solid var(--light-grey);
+    padding: 0.5rem 0;
+}
+
+.vi-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.vi-header .logo-text {
+    font-weight: 900;
+    font-size: 1.5rem;
+    color: var(--logo-color);
+}
+
+.vi-header .main-nav ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.vi-header .main-nav ul li a {
+    padding: 1rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-color);
+    transition: color 0.2s;
+}
+
+.vi-header .main-nav ul li a:hover {
+    color: var(--primary-color);
+}
+
+.vi-header .login-links a {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.vi-header .signin-button {
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: 0.5rem 1.5rem;
+    border-radius: 5px;
+    margin-left: 1rem;
+}
+
+.vi-header .signin-button:hover {
+    background-color: #a00;
+}
+
+/* Hero Section */
+.hero-section {
+    background-color: var(--light-grey);
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem auto;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.hero-content h1 {
+    font-size: 2.5rem;
+}
+
+/* Quick Recharge Section */
+.quick-recharge-section {
+    margin-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.quick-recharge-section .container {
+    display: flex;
+    gap: 1rem;
+}
+
+.card {
+    background-color: var(--light-grey);
+    padding: 2rem;
+    border-radius: 10px;
+    width: 50%;
+}
+
+.recharge-pay-bill h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.recharge-input {
+    display: flex;
+    margin-top: 1rem;
+}
+
+.recharge-input input {
+    border: 1px solid var(--medium-grey);
+    padding: 0.8rem;
+    border-radius: 5px 0 0 5px;
+    width: 100%;
+}
+
+.recharge-input button {
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+}
+
+.cookie-message {
+    background-color: var(--white);
+    border: 1px solid var(--medium-grey);
+    border-radius: 5px;
+    padding: 1rem;
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cookie-message p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.cookie-button {
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.new-to-vi-section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.new-to-vi-section p {
+    margin: 0;
+}
+
+.quick-link-icons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.link-icon {
+    background-color: var(--white);
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+}
+
+/* Plans Section */
+.best-postpaid-plans, .best-prepaid-plans {
+    padding: 3rem 0;
+    text-align: center;
+}
+
+.best-postpaid-plans h2, .best-prepaid-plans h2 {
+    margin-bottom: 1rem;
+}
+
+.plan-tabs {
+    margin-bottom: 2rem;
+}
+
+.plan-tabs a {
+    padding: 0.5rem 1.5rem;
+    border-radius: 50px;
+    margin: 0 0.5rem;
+    font-weight: bold;
+    color: var(--text-color);
+    border: 1px solid var(--medium-grey);
+}
+
+.plan-tabs a.active {
+    background-color: var(--red);
+    color: var(--white);
+    border-color: var(--red);
+}
+
+.plan-grid {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.plan-card {
+    border: 1px solid var(--medium-grey);
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
+    overflow: hidden;
+}
+
+.plan-card .complimentary {
+    background-color: var(--plan-highlight);
+    color: #8c6a0d;
+    padding: 0.8rem;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.plan-card .plan-details {
+    padding: 2rem;
+    text-align: left;
+}
+
+.plan-card .plan-details .plan-highlight {
+    background-color: var(--primary-color);
+    color: var(--white);
+    display: inline-block;
+    padding: 0.2rem 0.5rem;
+    font-size: 0.8rem;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+}
+
+.plan-card .plan-details h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.plan-card .plan-details .price {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.plan-card .plan-features {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+}
+
+.plan-card .plan-features li {
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.plan-card .plan-features li:before {
+    content: "✔️";
+    margin-right: 0.5rem;
+}
+
+.plan-card .proceed-button {
+    display: block;
+    background-color: var(--red);
+    color: var(--white);
+    padding: 1rem;
+    font-weight: bold;
+}
+
+/* Rewards & Benefits */
+.rewards-benefits-section {
+    padding: 3rem 0;
+    background-color: var(--light-grey);
+}
+
+.rewards-benefits-section h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.benefits-grid {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.benefit-card {
+    background-color: var(--white);
+    border-radius: 10px;
+    padding: 2rem;
+    width: 250px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.benefit-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+/* Footer */
+.footer-links-section {
+    background-color: var(--secondary-color);
+    color: var(--light-grey);
+    padding: 2rem 0;
+}
+
+.footer-links-section .footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr repeat(4, 1fr);
+    gap: 1.5rem;
+}
+
+.footer-links-section .logo-text {
+    font-weight: 900;
+    font-size: 1.5rem;
+    color: var(--logo-color);
+}
+
+.footer-links-section .company-desc {
+    font-size: 0.8rem;
+    line-height: 1.4;
+    margin-top: 1rem;
+}
+
+.footer-links-section h4 {
+    color: var(--white);
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+.footer-links-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links-section ul li a {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    transition: color 0.2s;
+}
+
+.footer-links-section ul li a:hover {
+    color: var(--white);
+}
+
+.footer-bottom {
+    text-align: center;
+    font-size: 0.8rem;
+    border-top: 1px solid #333;
+    padding-top: 1rem;
+    margin-top: 2rem;
+}
