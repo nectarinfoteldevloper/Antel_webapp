@@ -7,115 +7,127 @@
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
-<body>
-    <div class="dashboard-container">
-        <aside class="dashboard-sidebar">
-            <div class="sidebar-logo"><div class="logo-placeholder">AnTel</div></div>
-            <div class="user-profile-summary">
-                <div class="profile-avatar">P</div>
-                <div class="profile-info">
-                    <span id="sidebarUserName">Rahul</span>
-                    <span id="sidebarUserMobile">1234567890</span>
-                    <span class="user-status">Prepaid</span>
+<body style="font-family: Arial, sans-serif; margin: 0; background-color: #f9f9f9; color: #333;">
+    <div class="dashboard-container" style="display: flex; min-height: 100vh;">
+        <aside class="dashboard-sidebar" style="width: 280px; background-color: #fff; padding: 1.5rem; box-shadow: 2px 0 5px rgba(0,0,0,0.1); display: flex; flex-direction: column;">
+            <div class="sidebar-logo"><div class="logo-placeholder" style="font-weight: 900; font-size: 1.5rem; color: #FF7B00; margin-bottom: 2rem; display: block;">AnTel</div></div>
+            <div class="user-profile-summary" style="display: flex; flex-direction: column; margin-bottom: 2rem; position: relative; padding-bottom: 1rem; border-bottom: 1px solid #F5F5F5;">
+                <div class="profile-info-block" style="display: flex; align-items: center; margin-bottom: 1rem;">
+                    <div class="profile-avatar" style="width: 50px; height: 50px; background-color: #E20074; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold;">P</div>
+                    <div class="profile-details" style="display: flex; flex-direction: column; margin-left: 1rem;">
+                        <span id="sidebarUserName" style="font-weight: bold; font-size: 0.9em;">Rahul</span>
+                        <span id="sidebarUserMobile" style="font-size: 0.9em;">1234567890</span>
+                        <span class="user-status" style="background-color: #e0f7fa; color: #00796b; font-size: 0.8rem; padding: 0.2rem 0.5rem; border-radius: 10px; margin-top: 0.5rem;">Prepaid</span>
+                    </div>
                 </div>
-                <a href="#" class="add-profile-button button-link">add profile</a>
-                <div class="settings-icon button-link"><i class="fas fa-cog"></i></div>
+                <div class="profile-actions" style="display: flex; justify-content: space-between; align-items: center;">
+                    <a href="#" class="add-profile-button small-button" style="background-color: #F5F5F5; color: #333; padding: 0.5rem 1rem; border-radius: 5px; font-size: 0.8rem; text-decoration: none;">add profile</a>
+                    <div class="settings-icon" style="font-size: 1.2rem; color: #999; cursor: pointer;"><i class="fas fa-cog"></i></div>
+                </div>
             </div>
-            <ul class="sidebar-menu">
-                <li><a href="/dashboard.html" class="button-link active"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="/my_account.html" class="button-link"><i class="fas fa-user-circle"></i> My Account</a></li>
-                <li><a href="/recharge_history.html" class="button-link"><i class="fas fa-history"></i> Recharge History</a></li>
-                <li><a href="/active_plans.html" class="button-link"><i class="fas fa-box-open"></i> Active Plans</a></li>
-                <li><a href="/bill_payments.html" class="button-link"><i class="fas fa-file-invoice-dollar"></i> Bill Payments</a></li>
-                <li><a href="/support.html" class="button-link"><i class="fas fa-headset"></i> Support</a></li>
-                <li><a href="/rewards.html" class="button-link"><i class="fas fa-gift"></i> Rewards</a></li>
-                <li><a href="/my_devices.html" class="button-link"><i class="fas fa-mobile-alt"></i> My Devices</a></li>
-                <li><a href="/settings.html" class="button-link"><i class="fas fa-cog"></i> Settings</a></li>
-                <li><a href="#" id="logoutButton" class="button-link"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            <ul class="sidebar-menu" style="list-style: none; padding: 0; margin: 0; background-color: #f5f5f5; border-radius: 10px; padding: 10px; box-shadow: inset 0 0 5px rgba(0,0,0,0.05);">
+                <li style="margin-bottom: 0.5rem;"><a href="/dashboard.html" class="button-link active" style="display: flex; align-items: center; padding: 0.8rem 1rem; border-radius: 5px; color: #fff; font-weight: 600; text-decoration: none; background-color: #E20074;"><i class="fas fa-home" style="margin-right: 1rem; width: 20px; text-align: center;"></i> Home</a></li>
+                <li style="margin-bottom: 0.5rem;"><a href="/my_account.html" class="button-link" style="display: flex; align-items: center; padding: 0.8rem 1rem; border-radius: 5px; color: #333; font-weight: 600; text-decoration: none;"><i class="fas fa-user-circle" style="margin-right: 1rem; width: 20px; text-align: center;"></i> My Account</a></li>
+                <li style="margin-bottom: 0.5rem;"><a href="/recharge_history.html" class="button-link" style="display: flex; align-items: center; padding: 0.8rem 1rem; border-radius: 5px; color: #333; font-weight: 600; text-decoration: none;"><i class="fas fa-history" style="margin-right: 1rem; width: 20px; text-align: center;"></i> Recharge History</a></li>
+                <li style="margin-bottom: 0.5rem;"><a href="/active_plans.html" class="button-link" style="display: flex; align-items: center; padding: 0.8rem 1rem; border-radius: 5px; color: #333; font-weight: 600; text-decoration: none;"><i class="fas fa-box-open" style="margin-right: 1rem; width: 20px; text-align: center;"></i> Active Plans</a></li>
+                <li style="margin-bottom: 0.5rem;"><a href="/bill_payments.html" class="button-link" style="display: flex; align-items: center; padding: 0.8rem 1rem; border-radius: 5px; color: #333; font-weight: 600; text-decoration: none;"><i class="fas fa-file-invoice-dollar" style="margin-right: 1rem; width: 20px; text-align: center;"></i> Bill Payments</a></li>
+                <li style="margin-bottom: 0.5rem;"><a href="/support.html" class="button-link" style="display: flex; align-items: center; padding: 0.8rem 1rem; border-radius: 5px; color: #333; font-weight: 600; text-decoration: none;"><i class="fas fa-headset" style="margin-right: 1rem; width: 20px; text-align: center;"></i> Support</a></li>
+                <li style="margin-bottom: 0.5rem;"><a href="/rewards.html" class="button-link" style="display: flex; align-items: center; padding: 0.8rem 1rem; border-radius: 5px; color: #333; font-weight: 600; text-decoration: none;"><i class="fas fa-gift" style="margin-right: 1rem; width: 20px; text-align: center;"></i> Rewards</a></li>
+                <li style="margin-bottom: 0.5rem;"><a href="/my_devices.html" class="button-link" style="display: flex; align-items: center; padding: 0.8rem 1rem; border-radius: 5px; color: #333; font-weight: 600; text-decoration: none;"><i class="fas fa-mobile-alt" style="margin-right: 1rem; width: 20px; text-align: center;"></i> My Devices</a></li>
+                <li style="margin-bottom: 0.5rem;"><a href="/settings.html" class="button-link" style="display: flex; align-items: center; padding: 0.8rem 1rem; border-radius: 5px; color: #333; font-weight: 600; text-decoration: none;"><i class="fas fa-cog" style="margin-right: 1rem; width: 20px; text-align: center;"></i> Settings</a></li>
+                <li style="margin-bottom: 0.5rem;"><a href="#" id="logoutButton" class="button-link" style="display: flex; align-items: center; padding: 0.8rem 1rem; border-radius: 5px; color: #333; font-weight: 600; text-decoration: none;"><i class="fas fa-sign-out-alt" style="margin-right: 1rem; width: 20px; text-align: center;"></i> Logout</a></li>
             </ul>
         </aside>
-        <main class="dashboard-content">
-            <div class="dashboard-top-nav">
-                <a href="#" class="button-link">Get AnTel App</a>
-                <a href="#" class="button-link">Do not disturb</a>
-                <a href="#" class="button-link">Help</a>
+        <main class="dashboard-content" style="flex-grow: 1; padding: 2rem;">
+            <div class="dashboard-top-nav" style="display: flex; justify-content: flex-end; align-items: center; margin-bottom: 2rem; gap: 1rem;">
+                <a href="#" class="button-link" style="font-size: 0.9rem; color: #666; text-decoration: none;">Get AnTel App</a>
+                <a href="#" class="button-link" style="font-size: 0.9rem; color: #666; text-decoration: none;">Do not disturb</a>
+                <a href="#" class="button-link" style="font-size: 0.9rem; color: #666; text-decoration: none;">Help</a>
                 <a href="#" class="button-link"><i class="fas fa-bars"></i></a>
             </div>
 
-            <section class="top-promo-banner">
+            <section class="top-promo-banner" style="background: #fff; border-radius: 10px; padding: 20px 30px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); flex-wrap: wrap; gap: 20px;">
                 <div class="promo-text">
-                    <p>get 2GB with every utility bill payment</p>
-                    <button class="button small button-link">start paying</button>
+                    <p style="font-size: 1em; color: #333; margin-bottom: 5px;">get 2GB with every utility bill payment</p>
+                    <button class="small-button" style="background: #FF7B00; color: #fff; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-size: 0.9em;">start paying</button>
                 </div>
-                <div class="promo-graphic">💰</div>
+                <div class="promo-graphic" style="font-size: 3em; color: #FF7B00; text-align: center; width: 80px; height: 80px; display: flex; align-items: center; justify-content: center; border: 2px solid #FF7B00; border-radius: 10px;">💰</div>
             </section>
 
-            <div class="dashboard-grid-main">
-                <div class="data-call-summary">
-                    <div class="data-widget dashboard-widget button-link">
-                        <p class="data-metric" id="dataLeft">4.50GB</p>
-                        <p class="widget-content">Data Left</p>
+            <div class="dashboard-grid-main" style="display: grid; grid-template-areas: 'data-call data-call pack-validity' 'utilities utilities recharge-banner' 'unlimited-promo unlimited-promo unlimited-promo' 'detailed-sections detailed-sections detailed-sections'; gap: 20px;">
+                <div class="data-call-summary" style="grid-area: data-call; display: flex; gap: 0; border: 1px solid #e0e0e0; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+                    <div class="data-widget" style="flex: 1; padding: 25px; background-color: #fff; border-right: 1px solid #e0e0e0; text-align: center;">
+                        <p class="data-metric" id="dataLeft" style="color: #FF7B00; font-size: 2.8em; font-weight: bold; margin: 0;">4.50GB</p>
+                        <p>Data Left</p>
                     </div>
-                    <div class="calls-widget dashboard-widget button-link">
-                        <p class="data-metric" id="callStatus">truly unlimited calls</p>
-                    </div>
-                </div>
-
-                <div class="utility-icons-section dashboard-widget">
-                    <h3 class="widget-title">utilities <i class="fas fa-arrow-right"></i></h3>
-                    <div class="utility-icons">
-                        <div class="icon-item button-link"><i class="fas fa-bolt"></i><span>Electricity</span></div>
-                        <div class="icon-item button-link"><i class="fas fa-coins"></i><span>Loan Repayment</span></div>
-                        <div class="icon-item button-link"><i class="fas fa-id-card"></i><span>FASTag</span></div>
-                        <div class="icon-item button-link"><i class="fas fa-mobile-alt"></i><span>Mobile Postpaid</span></div>
-                        <div class="icon-item button-link"><i class="fas fa-wifi"></i><span>Broadband</span></div>
-                        <div class="icon-item button-link"><i class="fas fa-umbrella"></i><span>Insurance</span></div>
+                    <div class="unlimited-plan-card" style="flex: 1; background-color: #fff; padding: 25px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+                        <p class="plan-status" id="callStatus" style="font-size: 1.2em; font-weight: bold; color: #008080; margin-bottom: 5px;">truly unlimited calls</p>
+                        <p class="plan-name" style="font-size: 1.5em; color: #FF7B00; font-weight: bold;">5G Pack</p>
+                        <p class="plan-details-text" style="font-size: 0.9em; color: #666;">Valid Till 25 Sep, 2025</p>
                     </div>
                 </div>
 
-                <div class="pack-validity-section dashboard-widget">
-                    <p class="widget-content">Pack valid till <strong id="packValidity">25 Sep, 2025</strong></p>
-                    <div class="pack-actions">
-                        <button class="button small button-link pack-details-btn">pack details</button>
-                        <button class="button small button-link recharge-now-btn">recharge now</button>
+                <div class="utility-icons-section dashboard-widget" style="grid-area: utilities; background-color: #fff; border-radius: 10px; padding: 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+                    <h3 class="widget-title" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">utilities <i class="fas fa-arrow-right"></i></h3>
+                    <div class="utility-icons" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; text-align: center;">
+                        <div class="icon-item"><i class="fas fa-bolt" style="font-size: 2.2em; color: #FF7B00; margin-bottom: 8px;"></i><span style="font-size: 0.9em; color: #555;">Electricity</span></div>
+                        <div class="icon-item"><i class="fas fa-coins" style="font-size: 2.2em; color: #FF7B00; margin-bottom: 8px;"></i><span style="font-size: 0.9em; color: #555;">FFTH</span></div>
+                        <div class="icon-item"><i class="fas fa-id-card" style="font-size: 2.2em; color: #FF7B00; margin-bottom: 8px;"></i><span style="font-size: 0.9em; color: #555;">FASTag</span></div>
+                        <div class="icon-item"><i class="fas fa-mobile-alt" style="font-size: 2.2em; color: #FF7B00; margin-bottom: 8px;"></i><span style="font-size: 0.9em; color: #555;">Mobile Postpaid</span></div>
+                        <div class="icon-item"><i class="fas fa-wifi" style="font-size: 2.2em; color: #FF7B00; margin-bottom: 8px;"></i><span style="font-size: 0.9em; color: #555;">Broadband</span></div>
                     </div>
                 </div>
 
-                <div class="recharge-banner-bottom dashboard-widget">
+                <div class="pack-validity-section dashboard-widget" style="grid-area: pack-validity; display: flex; flex-direction: column; justify-content: center; align-items: center; background-color: #fff; border-radius: 10px; padding: 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+                    <p class="widget-content" style="font-size: 1.1em; font-weight: bold; margin: 0 0 15px 0; text-align: center;">Pack valid till <strong id="packValidity">25 Sep, 2025</strong></p>
+                    <div class="pack-actions" style="display: flex; gap: 10px;">
+                        <button class="small-button outlined-button" style="background-color: #fff; color: #333; border: 1px solid #CCC; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-size: 0.9em;">pack details</button>
+                        <button class="small-button primary-button" style="background-color: #E20074; color: #fff; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-size: 0.9em;">recharge now</button>
+                    </div>
+                </div>
+
+                <div class="recharge-banner-bottom dashboard-widget" style="grid-area: recharge-banner; display: flex; justify-content: space-between; align-items: center; gap: 15px; background-color: #fff; border-radius: 10px; padding: 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
                     <div class="banner-content">
-                        <div class="logo-placeholder" style="color: var(--antel-orange); font-size: 2em; margin-bottom: 5px;">AnTel</div>
-                        <p>recharge with ₹1198</p>
-                        <p class="small-text">get <span style="color: green; font-weight: bold;">100GB</span> at no extra cost</p>
-                        <button class="button small button-link">recharge now</button>
+                        <div class="logo-placeholder" style="color: #FF7B00; font-size: 2em; margin-bottom: 5px;">AnTel</div>
+                        <p style="color: #333; margin: 0;">recharge with ₹1198</p>
+                        <p class="small-text" style="color: #666; font-size: 0.9em; margin: 5px 0;">get <span style="color: green; font-weight: bold;">100GB</span> at no extra cost</p>
+                        <button class="small-button" style="background: #FF7B00; color: #fff; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-size: 0.9em;">recharge now</button>
                     </div>
-                    <div class="banner-graphic">🚀</div>
+                    <div class="banner-graphic" style="font-size: 3em; color: #FF7B00;">🚀</div>
                 </div>
 
-                <div class="unlimited-data-promo dashboard-widget">
+                <div class="unlimited-data-promo dashboard-widget" style="grid-area: unlimited-promo; background-color: #e6f7ff; border-radius: 10px; padding: 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); display: flex; justify-content: space-between; align-items: center; border: 1px solid #e6f7ff;">
                     <div>
-                        <p>unlimited data from <span>12AM - 12PM</span></p>
-                        <p class="small-text">starting at only ₹385</p>
-                        <a href="#" class="button-link">recharge now <i class="fas fa-arrow-right"></i></a>
+                        <p style="margin: 0;">unlimited data from <span style="font-weight: bold;">12AM - 12PM</span></p>
+                        <p class="small-text" style="font-size: 0.9em; color: #666; margin: 5px 0;">starting at only ₹385</p>
+                        <a href="#" class="button-link" style="color: #333; text-decoration: none;">recharge now <i class="fas fa-arrow-right"></i></a>
                     </div>
-                    <div class="promo-graphic">💡</div>
+                    <div class="promo-graphic" style="font-size: 3em; color: #FF7B00;">💡</div>
                 </div>
 
-                <div class="dashboard-detailed-sections">
-                    <div class="dashboard-widget button-link">
-                        <h3 class="widget-title"><i class="fas fa-history"></i> Recharge History</h3>
-                        <p>View your recharge history</p>
-                        <a href="#" class="button-link"><i class="fas fa-arrow-right"></i></a>
-                    </div>
-                    <div class="dashboard-widget button-link">
-                        <h3 class="widget-title"><i class="fas fa-box-open"></i> Active packs & services</h3>
-                        <p>Check your active pack details and benefits</p>
-                        <a href="#" class="button-link"><i class="fas fa-arrow-right"></i></a>
-                    </div>
-                    <div class="dashboard-widget button-link">
-                        <h3 class="widget-title"><i class="fas fa-star"></i> Requests & complaints</h3>
-                        <p>Track the status of your service requests</p>
-                        <a href="#" class="button-link"><i class="fas fa-arrow-right"></i></a>
-                    </div>
+                <div class="dashboard-detailed-sections" style="grid-area: detailed-sections; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                    <a href="#" class="dashboard-widget detailed-section-card" style="background-color: #fff; border-radius: 10px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); display: flex; flex-direction: column; position: relative; text-decoration: none; color: #333;">
+                        <h3 class="widget-title" style="margin-top: 0;"><i class="fas fa-history"></i> Recharge History</h3>
+                        <p style="font-size: 0.9em; color: #666; margin: 5px 0 15px;">View your recharge history</p>
+                        <i class="fas fa-arrow-right" style="position: absolute; bottom: 20px; right: 20px; font-size: 1.5em; color: #FF7B00;"></i>
+                    </a>
+                    <a href="#" class="dashboard-widget detailed-section-card" style="background-color: #fff; border-radius: 10px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); display: flex; flex-direction: column; position: relative; text-decoration: none; color: #333;">
+                        <h3 class="widget-title" style="margin-top: 0;"><i class="fas fa-box-open"></i> Active packs & services</h3>
+                        <p style="font-size: 0.9em; color: #666; margin: 5px 0 15px;">Check your active pack details and benefits</p>
+                        <i class="fas fa-arrow-right" style="position: absolute; bottom: 20px; right: 20px; font-size: 1.5em; color: #FF7B00;"></i>
+                    </a>
+                    <a href="#" class="dashboard-widget detailed-section-card" style="background-color: #fff; border-radius: 10px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); display: flex; flex-direction: column; position: relative; text-decoration: none; color: #333;">
+                        <h3 class="widget-title" style="margin-top: 0;"><i class="fas fa-star"></i> Requests & complaints</h3>
+                        <p style="font-size: 0.9em; color: #666; margin: 5px 0 15px;">Track the status of your service requests</p>
+                        <i class="fas fa-arrow-right" style="position: absolute; bottom: 20px; right: 20px; font-size: 1.5em; color: #FF7B00;"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="map-section" style="background-color: #fff; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); padding: 25px; margin-top: 30px; grid-column: 1 / -1;">
+                <h3 style="color: #008080; margin-top: 0; margin-bottom: 15px;">Find Your Nearest AnTel Store</h3>
+                <div class="map-container" style="border: 1px solid #ddd; border-radius: 8px; overflow: hidden;">
+                    <img src="./images/Antel_Location_ .png" alt="Map of AnTel store locations" style="width: 100%; height: auto; display: block;" />
                 </div>
             </div>
         </main>
