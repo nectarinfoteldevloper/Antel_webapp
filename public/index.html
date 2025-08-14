@@ -4,15 +4,451 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AnTel - Manage Your Mobile Services</title>
-    <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* General Styles & Color Palette */
+        :root {
+            --antel-orange: #FF8F00;
+            --antel-pink: #E20074;
+            --antel-turquoise: #00796B;
+            --antel-white: #FAFAFA;
+            --antel-text-dark: #333;
+            --antel-light-gray: #f5f5f5;
+            --antel-gray: #999;
+            --antel-light-bg: #f9f9f9;
+            --antel-dark-blue: #2c3e50;
+            --box-shadow-light: 0 4px 12px rgba(0,0,0,0.08);
+            --transition-speed: 0.3s;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            background-color: var(--antel-light-bg);
+            color: var(--antel-text-dark);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Header */
+        .vi-header {
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 0.5rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .vi-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-text {
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: var(--antel-orange);
+            text-decoration: none;
+            transition: color var(--transition-speed);
+        }
+        
+        .logo-text:hover {
+            color: var(--antel-pink);
+        }
+
+        .main-nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .main-nav li {
+            margin: 0 1rem;
+            position: relative;
+        }
+        
+        .main-nav a {
+            color: var(--antel-text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color var(--transition-speed);
+        }
+
+        .main-nav a:hover {
+            color: var(--antel-pink);
+        }
+
+        .main-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--antel-pink);
+            transition: width var(--transition-speed);
+        }
+
+        .main-nav a:hover::after {
+            width: 100%;
+        }
+
+        .login-links .signin-button {
+            background-color: var(--antel-pink);
+            color: var(--antel-white);
+            padding: 0.6rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color var(--transition-speed), transform var(--transition-speed);
+        }
+
+        .login-links .signin-button:hover {
+            background-color: #c90064;
+            transform: translateY(-2px);
+        }
+        
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(to right, #00796B, #00665c);
+            color: var(--antel-white);
+            padding: 5rem 0;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        /* Quick Recharge Section */
+        .quick-recharge-section {
+            background-color: var(--antel-white);
+            padding: 3rem 0;
+            position: relative;
+            margin-top: -3rem;
+            border-radius: 15px 15px 0 0;
+            box-shadow: var(--box-shadow-light);
+            z-index: 10;
+        }
+
+        .quick-recharge-section .container {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            flex: 1;
+        }
+        
+        .card h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 0;
+        }
+
+        .recharge-input {
+            display: flex;
+            align-items: center;
+            border: 1px solid var(--antel-light-gray);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .recharge-input input {
+            border: none;
+            padding: 0.8rem;
+            font-size: 1rem;
+            flex-grow: 1;
+        }
+
+        .recharge-input button {
+            background-color: var(--antel-pink);
+            color: #fff;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color var(--transition-speed), transform var(--transition-speed);
+        }
+
+        .recharge-input button:hover {
+            background-color: #c90064;
+            transform: translateY(-2px);
+        }
+
+        .quick-link-icons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1.5rem;
+        }
+        
+        .quick-link-icons a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--antel-text-dark);
+            font-weight: 500;
+            transition: color var(--transition-speed);
+        }
+
+        .quick-link-icons a:hover {
+            color: var(--antel-pink);
+        }
+
+        .quick-link-icons i {
+            font-size: 2rem;
+            color: var(--antel-pink);
+            margin-bottom: 0.5rem;
+            transition: transform var(--transition-speed), color var(--transition-speed);
+        }
+        
+        .quick-link-icons a:hover i {
+            transform: scale(1.1);
+            color: var(--antel-orange);
+        }
+
+        /* Plans Section */
+        .best-postpaid-plans, .best-prepaid-plans, .rewards-benefits-section {
+            padding: 4rem 0;
+        }
+        
+        .plan-tabs {
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--antel-light-gray);
+        }
+
+        .plan-tabs a {
+            padding: 0.8rem 1.5rem;
+            text-decoration: none;
+            color: var(--antel-text-dark);
+            font-weight: 600;
+            position: relative;
+            transition: color var(--transition-speed);
+        }
+        
+        .plan-tabs a.active {
+            color: var(--antel-pink);
+        }
+
+        .plan-tabs a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--antel-pink);
+        }
+
+        .plan-grid, .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .plan-card {
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: var(--box-shadow-light);
+            overflow: hidden;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            transition: transform var(--transition-speed);
+        }
+        
+        .plan-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .plan-details {
+            padding: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .complimentary {
+            background-color: #ffe8e8;
+            color: var(--antel-pink);
+            padding: 0.5rem 0;
+            font-weight: 500;
+            font-size: 0.9em;
+        }
+        
+        .plan-highlight {
+            font-size: 0.9em;
+            color: var(--antel-turquoise);
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        .plan-details h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 0.5rem 0 0;
+        }
+        
+        .price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--antel-pink);
+            margin: 0.5rem 0 1rem;
+        }
+
+        .plan-features {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 1.5rem;
+            text-align: left;
+        }
+
+        .plan-features li {
+            font-size: 0.9em;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--antel-light-gray);
+        }
+
+        .proceed-button {
+            display: block;
+            background-color: var(--antel-orange);
+            color: var(--antel-white);
+            padding: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background-color var(--transition-speed);
+        }
+
+        .proceed-button:hover {
+            background-color: #e57d00;
+        }
+        
+        .benefit-card {
+            background-color: #fff;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: var(--box-shadow-light);
+            text-align: center;
+            transition: transform var(--transition-speed);
+        }
+        
+        .benefit-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .benefit-card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--antel-turquoise);
+        }
+
+        .benefit-card i {
+            font-size: 2.5rem;
+            color: var(--antel-pink);
+            margin-bottom: 1rem;
+            transition: transform var(--transition-speed), color var(--transition-speed);
+        }
+
+        .benefit-card:hover i {
+            transform: scale(1.1);
+            color: var(--antel-orange);
+        }
+
+        /* Footer */
+        .footer-links-section {
+            background-color: var(--antel-dark-blue);
+            color: var(--antel-white);
+            padding: 4rem 0 2rem;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-col a.logo-text {
+            color: var(--antel-orange);
+            font-size: 2rem;
+        }
+        
+        .footer-col h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--antel-pink);
+            margin-bottom: 1rem;
+        }
+
+        .footer-col ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-col li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-col a {
+            color: var(--antel-white);
+            text-decoration: none;
+            font-size: 0.9em;
+            transition: color var(--transition-speed);
+        }
+        
+        .footer-col a:hover {
+            color: var(--antel-pink);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            border-top: 1px solid #444;
+            padding-top: 1.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .vi-header .container {
+                flex-wrap: wrap;
+            }
+            .main-nav {
+                display: none;
+                width: 100%;
+            }
+            .main-nav ul {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .quick-recharge-section .container {
+                flex-direction: column;
+            }
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <header class="vi-header">
         <div class="container">
-            <div class="logo">
-                <a href="#" class="logo-text">AnTel</a>
-            </div>
+            <a href="#" class="logo-text">AnTel</a>
             <nav class="main-nav">
                 <ul>
                     <li><a href="#">Prepaid</a></li>
@@ -20,20 +456,13 @@
                     <li><a href="#">New Connection</a></li>
                     <li><a href="#">International Roaming</a></li>
                     <li><a href="#">5G</a></li>
-                    <li class="explore-dropdown">
-                        <a href="#">Explore ▼</a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">AnTel Movies & TV</a></li>
-                            <li><a href="#">AnTel Games</a></li>
-                        </ul>
-                    </li>
                     <li><a href="#">Help</a></li>
                     <li><a href="#">DND</a></li>
-                    <li><a href="#">🔍</a></li>
+                    <li><a href="#"><i class="fas fa-search"></i></a></li>
                 </ul>
             </nav>
             <div class="login-links">
-                <a href="signin.html" class="signin-button">SignIn</a>
+                <a href="signin.html" class="signin-button">Sign In</a>
             </div>
         </div>
     </header>
@@ -42,31 +471,23 @@
         <section class="hero-section">
             <div class="container hero-content">
                 <div class="hero-left">
-                    <h1>there's always more with AnTel 🚀</h1>
+                    <h1>There's always more with AnTel 🚀</h1>
                 </div>
             </div>
         </section>
-
+        
         <section class="quick-recharge-section">
             <div class="container">
                 <div class="card recharge-pay-bill">
-                    <h2>recharge and pay bill</h2>
+                    <h2>Quick Actions</h2>
                     <div class="recharge-input">
-                        <input type="text" placeholder="enter mobile number">
-                        <button>➤</button>
+                        <input type="text" placeholder="Enter mobile number to recharge or pay" aria-label="Enter mobile number">
+                        <button><i class="fas fa-arrow-right"></i></button>
                     </div>
-                    <div class="cookie-message">
-                        <p>We are providing you this sweet experience by using cookies 🍪</p>
-                        <button class="cookie-button">okay, thanks</button>
-                    </div>
-                </div>
-                <div class="card new-to-vi-section">
-                    <h2>new to AnTel?</h2>
-                    <p>get AnTel SIM delivered free</p>
                     <div class="quick-link-icons">
-                        <div class="link-icon">📱</div>
-                        <div class="link-icon">🔁</div>
-                        <div class="link-icon">📇</div>
+                        <a href="#"><i class="fas fa-mobile-alt"></i>Get New SIM</a>
+                        <a href="#"><i class="fas fa-sync-alt"></i>Port to AnTel</a>
+                        <a href="#"><i class="fas fa-id-card"></i>E-KYC</a>
                     </div>
                 </div>
             </div>
@@ -74,7 +495,7 @@
 
         <section class="best-postpaid-plans">
             <div class="container">
-                <h2>best postpaid plans</h2>
+                <h2>Best Postpaid Plans</h2>
                 <div class="plan-tabs">
                     <a href="#" class="active">Individual plans</a>
                     <a href="#">Family plans</a>
@@ -85,51 +506,48 @@
                             <p>Choose any 1 complimentary benefit 🎁</p>
                         </div>
                         <div class="plan-details">
-                            <p class="plan-highlight">unlimited 5G</p>
+                            <p class="plan-highlight">Unlimited 5G</p>
                             <h3>AnTel Max 451</h3>
-                            <p class="price">₹451/month</p>
+                            <p class="price">₹451<span class="price-suffix">/month</span></p>
                             <ul class="plan-features">
-                                <li>📞 unlimited calls</li>
-                                <li>💾 50 GB + unlimited Night Data 12 AM to 6 AM</li>
-                                <li>✉️ 3000 SMS/Month</li>
+                                <li><i class="fas fa-phone-alt"></i> Unlimited Calls</li>
+                                <li><i class="fas fa-database"></i> 50 GB + unlimited Night Data</li>
+                                <li><i class="fas fa-envelope"></i> 3000 SMS/Month</li>
                             </ul>
-                            <p class="small-text">Local, STD, National Roaming</p>
                         </div>
-                        <a href="#" class="proceed-button">proceed with ₹451 plan</a>
+                        <a href="#" class="proceed-button">Proceed with ₹451 plan</a>
                     </div>
                     <div class="plan-card">
                         <div class="complimentary">
                             <p>Choose any 2 complimentary benefits 🎁</p>
                         </div>
                         <div class="plan-details">
-                            <p class="plan-highlight">unlimited 5G</p>
+                            <p class="plan-highlight">Unlimited 5G</p>
                             <h3>AnTel Max 551</h3>
-                            <p class="price">₹551/month</p>
+                            <p class="price">₹551<span class="price-suffix">/month</span></p>
                             <ul class="plan-features">
-                                <li>📞 unlimited calls</li>
-                                <li>💾 90 GB + unlimited Night Data 12 AM to 6 AM</li>
-                                <li>✉️ 3000 SMS/Month</li>
+                                <li><i class="fas fa-phone-alt"></i> Unlimited Calls</li>
+                                <li><i class="fas fa-database"></i> 90 GB + unlimited Night Data</li>
+                                <li><i class="fas fa-envelope"></i> 3000 SMS/Month</li>
                             </ul>
-                            <p class="small-text">Local, STD, National Roaming</p>
                         </div>
-                        <a href="#" class="proceed-button">proceed with ₹551 plan</a>
+                        <a href="#" class="proceed-button">Proceed with ₹551 plan</a>
                     </div>
                     <div class="plan-card">
                         <div class="complimentary">
                             <p>Choose any 3 complimentary benefits 🎁</p>
                         </div>
                         <div class="plan-details">
-                            <p class="plan-highlight">unlimited 5G</p>
+                            <p class="plan-highlight">Unlimited 5G</p>
                             <h3>AnTel Max 751</h3>
-                            <p class="price">₹751/month</p>
+                            <p class="price">₹751<span class="price-suffix">/month</span></p>
                             <ul class="plan-features">
-                                <li>📞 unlimited calls</li>
-                                <li>💾 150 GB + unlimited Night Data 12 AM to 6 AM</li>
-                                <li>✉️ 3000 SMS/Month</li>
+                                <li><i class="fas fa-phone-alt"></i> Unlimited Calls</li>
+                                <li><i class="fas fa-database"></i> 150 GB + unlimited Night Data</li>
+                                <li><i class="fas fa-envelope"></i> 3000 SMS/Month</li>
                             </ul>
-                            <p class="small-text">Local, STD, National Roaming</p>
                         </div>
-                        <a href="#" class="proceed-button">proceed with ₹751 plan</a>
+                        <a href="#" class="proceed-button">Proceed with ₹751 plan</a>
                     </div>
                 </div>
             </div>
@@ -137,49 +555,46 @@
 
         <section class="best-prepaid-plans">
             <div class="container">
-                <h2>best prepaid plans</h2>
+                <h2>Best Prepaid Plans</h2>
                 <div class="plan-grid">
                     <div class="plan-card">
                         <div class="plan-details">
                             <p class="plan-highlight">Data + Calling</p>
-                            <h3>AnTel Unlimited 299</h3>
+                            <h3>Unlimited 299</h3>
                             <p class="price">₹299</p>
                             <ul class="plan-features">
-                                <li>📞 Unlimited Calls</li>
-                                <li>💾 1.5 GB/Day</li>
-                                <li>✉️ 100 SMS/Day</li>
+                                <li><i class="fas fa-phone-alt"></i> Unlimited Calls</li>
+                                <li><i class="fas fa-database"></i> 1.5 GB/Day</li>
+                                <li><i class="fas fa-envelope"></i> 100 SMS/Day</li>
                             </ul>
-                            <p class="small-text">Validity: 28 Days</p>
+                            <a href="#" class="proceed-button">Recharge Now</a>
                         </div>
-                        <a href="#" class="proceed-button">Recharge Now</a>
                     </div>
                     <div class="plan-card">
                         <div class="plan-details">
                             <p class="plan-highlight">Data + Calling</p>
-                            <h3>AnTel Unlimited 599</h3>
+                            <h3>Unlimited 599</h3>
                             <p class="price">₹599</p>
                             <ul class="plan-features">
-                                <li>📞 Unlimited Calls</li>
-                                <li>💾 2 GB/Day</li>
-                                <li>✉️ 100 SMS/Day</li>
+                                <li><i class="fas fa-phone-alt"></i> Unlimited Calls</li>
+                                <li><i class="fas fa-database"></i> 2 GB/Day</li>
+                                <li><i class="fas fa-envelope"></i> 100 SMS/Day</li>
                             </ul>
-                            <p class="small-text">Validity: 84 Days</p>
+                            <a href="#" class="proceed-button">Recharge Now</a>
                         </div>
-                        <a href="#" class="proceed-button">Recharge Now</a>
                     </div>
                     <div class="plan-card">
                         <div class="plan-details">
                             <p class="plan-highlight">Data + Calling</p>
-                            <h3>AnTel Unlimited 999</h3>
+                            <h3>Unlimited 999</h3>
                             <p class="price">₹999</p>
                             <ul class="plan-features">
-                                <li>📞 Unlimited Calls</li>
-                                <li>💾 3 GB/Day</li>
-                                <li>✉️ 100 SMS/Day</li>
+                                <li><i class="fas fa-phone-alt"></i> Unlimited Calls</li>
+                                <li><i class="fas fa-database"></i> 3 GB/Day</li>
+                                <li><i class="fas fa-envelope"></i> 100 SMS/Day</li>
                             </ul>
-                            <p class="small-text">Validity: 365 Days</p>
+                            <a href="#" class="proceed-button">Recharge Now</a>
                         </div>
-                        <a href="#" class="proceed-button">Recharge Now</a>
                     </div>
                 </div>
             </div>
@@ -187,73 +602,77 @@
 
         <section class="rewards-benefits-section">
             <div class="container">
-                <h2>rewards & benefits</h2>
+                <h2>Rewards & Benefits</h2>
                 <div class="benefits-grid">
                     <div class="benefit-card">
-                        <h3>Extra Data 💾</h3>
+                        <i class="fas fa-database"></i>
+                        <h3>Extra Data</h3>
                         <p>Get up to 5GB extra data on select recharges.</p>
                     </div>
                     <div class="benefit-card">
-                        <h3>Cashback 💰</h3>
+                        <i class="fas fa-indian-rupee-sign"></i>
+                        <h3>Cashback</h3>
                         <p>Instant cashback on app recharges.</p>
                     </div>
                     <div class="benefit-card">
-                        <h3>Movies & TV 🍿</h3>
+                        <i class="fas fa-film"></i>
+                        <h3>Movies & TV</h3>
                         <p>Access to AnTel Movies & TV library.</p>
                     </div>
                     <div class="benefit-card">
-                        <h3>Gaming 🎮</h3>
+                        <i class="fas fa-gamepad"></i>
+                        <h3>Gaming</h3>
                         <p>Free access to exclusive mobile games.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="footer-links-section">
-            <div class="container">
-                <div class="footer-grid">
-                    <div class="footer-col">
-                        <a href="#" class="logo-text">AnTel</a>
-                        <p class="company-desc">Vodafone Idea Limited, a partnership between the Aditya Birla Group & Vodafone Group, provides pan-India voice and data services using the latest communication technologies</p>
-                    </div>
-                    <div class="footer-col">
-                        <h4>about AnTel</h4>
-                        <ul>
-                            <li><a href="#">About Us</a></li>
-                            <li><a href="#">AnTel Idea Corp</a></li>
-                            <li><a href="#">Foundation</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-col">
-                        <h4>more from AnTel</h4>
-                        <ul>
-                            <li><a href="#">Postpaid</a></li>
-                            <li><a href="#">Connection</a></li>
-                            <li><a href="#">Prepaid</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-col">
-                        <h4>explore on AnTel app</h4>
-                        <ul>
-                            <li><a href="#">AnTel Games</a></li>
-                            <li><a href="#">AnTel Movies & TV</a></li>
-                            <li><a href="#">AnTel Hero Unlimited</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-col">
-                        <h4>regulatory & quick access</h4>
-                        <ul>
-                            <li><a href="#">Telemarketing</a></li>
-                            <li><a href="#">Registration</a></li>
-                            <li><a href="#">Privacy Policy</a></li>
-                        </ul>
-                    </div>
+    </main>
+    <footer class="footer-links-section">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="#" class="logo-text">AnTel</a>
+                    <p class="company-desc">Vodafone Idea Limited, a partnership between the Aditya Birla Group & Vodafone Group, provides pan-India voice and data services using the latest communication technologies</p>
+                </div>
+                <div class="footer-col">
+                    <h4>about AnTel</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">AnTel Idea Corp</a></li>
+                        <li><a href="#">Foundation</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>more from AnTel</h4>
+                    <ul>
+                        <li><a href="#">Postpaid</a></li>
+                        <li><a href="#">Connection</a></li>
+                        <li><a href="#">Prepaid</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>explore on AnTel app</h4>
+                    <ul>
+                        <li><a href="#">AnTel Games</a></li>
+                        <li><a href="#">AnTel Movies & TV</a></li>
+                        <li><a href="#">AnTel Hero Unlimited</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>regulatory & quick access</h4>
+                    <ul>
+                        <li><a href="#">Telemarketing</a></li>
+                        <li><a href="#">Registration</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
                 </div>
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2025 AnTel. All rights reserved.</p>
             </div>
-        </section>
-    </main>
+        </div>
+    </footer>
 </body>
 </html>

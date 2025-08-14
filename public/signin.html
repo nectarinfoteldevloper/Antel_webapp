@@ -235,36 +235,32 @@
                         <input type="password" id="password" name="password" placeholder="Enter your password" required>
                     </div>
                     <p class="toggle-form-link">
-                        Don't have an AnTel SIM? <a href="#" id="toggleAuthMode">Get a new one</a>
+                        Don't have an account? <a href="#" id="toggleAuthMode">Sign Up</a>
                     </p>
                     <div class="signin-buttons">
                         <button type="submit" class="button">Log In</button>
                     </div>
                 </form>
 
-                <form class="auth-form" id="getSimForm" style="display: none;">
+                <form class="auth-form" id="signupForm" style="display: none;">
                     <div class="form-group">
-                        <label for="name">Your Name</label>
-                        <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                        <label for="signupName">Your Name</label>
+                        <input type="text" id="signupName" name="signupName" placeholder="Enter your full name" required>
                     </div>
                     <div class="form-group">
-                        <label for="dob">Date of Birth</label>
-                        <input type="date" id="dob" name="dob" required>
+                        <label for="signupMobileNumber">AnTel mobile number</label>
+                        <input type="text" id="signupMobileNumber" name="signupMobileNumber" placeholder="Enter your mobile number" required>
                     </div>
                     <div class="form-group">
-                        <label for="aadharPhoto">Upload Aadhar Card Photo</label>
-                        <input type="file" id="aadharPhoto" name="aadharPhoto" accept="image/*" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="livePhoto">Take a Live Photo</label>
-                        <input type="file" id="livePhoto" name="livePhoto" accept="image/*" capture="user" required>
-                    </div>
-                    <div class="signin-buttons">
-                        <button type="submit" class="button">Proceed</button>
+                        <label for="signupPassword">Password</label>
+                        <input type="password" id="signupPassword" name="signupPassword" placeholder="Create a password" required>
                     </div>
                     <p class="toggle-form-link">
-                        <span id="toggleText">Already have an account?</span> <a href="#" id="toggleAuthModeSim">Log In</a>
+                        Already have an account? <a href="#" id="toggleAuthModeSignup">Log In</a>
                     </p>
+                    <div class="signin-buttons">
+                        <button type="submit" class="button">Sign Up</button>
+                    </div>
                 </form>
 
                 <p class="error-message" id="errorMessage" style="display: none;"></p>
@@ -280,45 +276,5 @@
         </div>
     </div>
     <script src="./js/app.js"></script>
-    <script>
-        // Frontend logic to switch between login and get sim forms
-        document.addEventListener('DOMContentLoaded', () => {
-            const loginForm = document.getElementById('loginForm');
-            const getSimForm = document.getElementById('getSimForm');
-            const toggleAuthModeLink = document.getElementById('toggleAuthMode');
-            const toggleAuthModeSimLink = document.getElementById('toggleAuthModeSim');
-            const formTitle = document.getElementById('formTitle');
-
-            // Event listener to switch from login to get sim form
-            if (toggleAuthModeLink) {
-                toggleAuthModeLink.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    loginForm.style.display = 'none';
-                    getSimForm.style.display = 'block';
-                    formTitle.textContent = 'Get a New AnTel SIM';
-                });
-            }
-
-            // Event listener to switch back to login form
-            if (toggleAuthModeSimLink) {
-                toggleAuthModeSimLink.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    getSimForm.style.display = 'none';
-                    loginForm.style.display = 'block';
-                    formTitle.textContent = 'Sign In to AnTel';
-                });
-            }
-
-            // Dummy form submission for the Get SIM form
-            if (getSimForm) {
-                getSimForm.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    alert('Your request for a new SIM has been submitted! Our team will contact you shortly.');
-                    // You can add more dummy logic here, like clearing the form.
-                    getSimForm.reset();
-                });
-            }
-        });
-    </script>
 </body>
 </html>

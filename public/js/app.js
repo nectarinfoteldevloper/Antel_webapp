@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
 
                     const result = await response.json();
-                    if (result.success) {
+                    if (response.ok) {
                         showMessage(errorMessage, 'Registration successful! Please log in.', 'success');
                         setFormVisibility(true);
                         document.getElementById('mobileNumber').value = mobileNumber;
@@ -104,10 +104,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
 
                     const result = await response.json();
-                    if (result.success) {
-                        localStorage.setItem('loggedInUserMobile', result.user.mobileNumber);
-                        localStorage.setItem('loggedInUserName', result.user.name);
+                    if (response.ok) {
+                        // Store the token and user data in localStorage
                         localStorage.setItem('authToken', result.token);
+                        // Storing a simple ID or mobile number for a quick login check is okay
+                        localStorage.setItem('loggedInUserMobile', result.user.mobileNumber); 
                         
                         showMessage(errorMessage, 'Login successful! Redirecting...', 'success');
                         setTimeout(() => {
@@ -133,55 +134,67 @@ document.addEventListener('DOMContentLoaded', () => {
                             window.location.pathname.startsWith('/support.html');
 
     if (isDashboardPage) {
-        const loggedInUserMobile = localStorage.getItem('loggedInUserMobile');
         const authToken = localStorage.getItem('authToken');
 
-        if (!loggedInUserMobile || !authToken) {
+        if (!authToken) {
             alert('You are not logged in. Please sign in.');
-            window.location.href = '/';
+            localStorage.clear();
+            window.location.href = '/signin.html';
             return;
         }
 
-        // Fetch and populate sidebar on all dashboard-style pages
-        const fetchUserData = async () => {
+        // Centralized fetch function for all dashboard data
+        const fetchAllDashboardData = async () => {
+            // Show loading state immediately for a better user experience
+            document.getElementById('sidebarUserName').textContent = 'Loading...';
+            document.getElementById('sidebarUserMobile').textContent = '';
+
             try {
-                const response = await fetch(`/api/user/dashboard/${loggedInUserMobile}`);
-                const result = await response.json();
-                if (result.success) {
-                    const currentUser = result.user;
-                    // Populate sidebar info on all pages
-                    document.getElementById('sidebarUserName').textContent = currentUser.name || 'User';
-                    document.getElementById('sidebarUserMobile').textContent = currentUser.mobileNumber;
-                    
-                    return currentUser;
-                } else {
-                    throw new Error(result.message);
+                const response = await fetch('/api/user/all-dashboard-data', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${authToken}` // Securely pass the token
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error('Authentication failed. Please log in again.');
                 }
+                
+                const result = await response.json();
+                return result;
+
             } catch (e) {
                 console.error("Error fetching user data:", e);
-                alert("Error loading user data. Please log in again.");
+                alert("Session expired or an error occurred. Please log in again.");
                 localStorage.clear();
-                window.location.href = '/';
+                window.location.href = '/signin.html';
             }
         };
 
         const initPage = async () => {
-            const currentUser = await fetchUserData();
-            if (!currentUser) return;
+            const allUserData = await fetchAllDashboardData();
+            if (!allUserData || !allUserData.user) return;
+            
+            const currentUser = allUserData.user;
+
+            // Populate sidebar info on all pages
+            document.getElementById('sidebarUserName').textContent = currentUser.name || 'User';
+            document.getElementById('sidebarUserMobile').textContent = currentUser.mobileNumber;
             
             // --- Specific Page Logic ---
 
             // Dashboard Page
             if (window.location.pathname.endsWith('/dashboard.html')) {
-                document.getElementById('dataLeft').textContent = `${currentUser.dataBalance}GB`;
-                document.getElementById('packValidity').textContent = currentUser.packValidity;
-                document.getElementById('callStatus').textContent = currentUser.callStatus;
+                document.getElementById('dataLeft').textContent = `${currentUser.dataBalance || 'N/A'}GB`;
+                document.getElementById('packValidity').textContent = currentUser.packValidity || 'N/A';
+                document.getElementById('callStatus').textContent = currentUser.callStatus || 'N/A';
             }
 
             // My Account Page
             if (window.location.pathname.endsWith('/my_account.html')) {
-                document.getElementById('accountUserName').textContent = currentUser.name;
-                document.getElementById('accountUserMobile').textContent = currentUser.mobileNumber;
+                document.getElementById('accountUserName').textContent = currentUser.name || 'N/A';
+                document.getElementById('accountUserMobile').textContent = currentUser.mobileNumber || 'N/A';
                 document.getElementById('accountUserEmail').textContent = 'example@antel.com'; 
                 document.getElementById('accountUserServiceType').textContent = 'Prepaid';
                 document.getElementById('smsAlertsStatus').textContent = 'Enabled';
@@ -194,30 +207,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 const rechargeTableBody = document.getElementById('rechargeHistoryTableBody');
                 const noRechargesMessage = document.getElementById('noRechargesMessage');
 
-                try {
-                    const response = await fetch(`/api/user/recharge-history/${currentUser.mobileNumber}`);
-                    const result = await response.json();
-                    
-                    if (result.success && result.recharges.length > 0) {
-                        rechargeTableBody.innerHTML = ''; // Clear existing content
-                        result.recharges.forEach(recharge => {
-                            const row = document.createElement('tr');
-                            row.innerHTML = `
-                                <td>${recharge.date}</td>
-                                <td>₹${recharge.amount}</td>
-                                <td>${recharge.plan}</td>
-                                <td style="color: ${recharge.status === 'Success' ? 'green' : 'red'};">${recharge.status}</td>
-                            `;
-                            rechargeTableBody.appendChild(row);
-                        });
-                        noRechargesMessage.style.display = 'none';
-                    } else {
-                        rechargeTableBody.innerHTML = '';
-                        noRechargesMessage.style.display = 'block';
-                    }
-                } catch (e) {
-                    console.error("Error fetching recharge history:", e);
-                    noRechargesMessage.textContent = 'Could not load recharge history.';
+                const recharges = allUserData.recharges || [];
+                if (recharges.length > 0) {
+                    rechargeTableBody.innerHTML = '';
+                    recharges.forEach(recharge => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${recharge.date}</td>
+                            <td>₹${recharge.amount}</td>
+                            <td>${recharge.plan}</td>
+                            <td style="color: ${recharge.status === 'Success' ? 'green' : 'red'};">${recharge.status}</td>
+                        `;
+                        rechargeTableBody.appendChild(row);
+                    });
+                    noRechargesMessage.style.display = 'none';
+                } else {
+                    rechargeTableBody.innerHTML = '';
                     noRechargesMessage.style.display = 'block';
                 }
             }
@@ -226,31 +231,23 @@ document.addEventListener('DOMContentLoaded', () => {
             if (window.location.pathname.endsWith('/my_devices.html')) {
                 const devicesContainer = document.getElementById('connectedDevicesContainer');
                 const noDevicesMessage = document.getElementById('noDevicesMessage');
-
-                try {
-                    const response = await fetch(`/api/user/devices/${currentUser.mobileNumber}`);
-                    const result = await response.json();
-
-                    if (result.success && result.devices.length > 0) {
-                        devicesContainer.innerHTML = ''; // Clear existing content
-                        result.devices.forEach(device => {
-                            const deviceCard = document.createElement('div');
-                            deviceCard.className = 'device-card';
-                            deviceCard.innerHTML = `
-                                <h4>${device.name}</h4>
-                                <p><strong>Last Active:</strong> ${device.lastActive}</p>
-                                <p><strong>Location:</strong> ${device.location}</p>
-                            `;
-                            devicesContainer.appendChild(deviceCard);
-                        });
-                        noDevicesMessage.style.display = 'none';
-                    } else {
-                        devicesContainer.innerHTML = '';
-                        noDevicesMessage.style.display = 'block';
-                    }
-                } catch (e) {
-                    console.error("Error fetching devices:", e);
-                    noDevicesMessage.textContent = 'Could not load connected devices.';
+                
+                const devices = allUserData.devices || [];
+                if (devices.length > 0) {
+                    devicesContainer.innerHTML = '';
+                    devices.forEach(device => {
+                        const deviceCard = document.createElement('div');
+                        deviceCard.className = 'device-card';
+                        deviceCard.innerHTML = `
+                            <h4>${device.name}</h4>
+                            <p><strong>Last Active:</strong> ${device.lastActive}</p>
+                            <p><strong>Location:</strong> ${device.location}</p>
+                        `;
+                        devicesContainer.appendChild(deviceCard);
+                    });
+                    noDevicesMessage.style.display = 'none';
+                } else {
+                    devicesContainer.innerHTML = '';
                     noDevicesMessage.style.display = 'block';
                 }
             }
@@ -260,32 +257,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 const rewardsContainer = document.getElementById('rewardsContainer');
                 const noRewardsMessage = document.getElementById('noRewardsMessage');
 
-                try {
-                    const response = await fetch(`/api/user/rewards/${currentUser.mobileNumber}`);
-                    const result = await response.json();
-
-                    if (result.success && result.rewards.length > 0) {
-                        rewardsContainer.innerHTML = '';
-                        result.rewards.forEach(reward => {
-                            const rewardCard = document.createElement('div');
-                            rewardCard.className = 'reward-card';
-                            rewardCard.innerHTML = `
-                                <i class="fas fa-gift reward-icon"></i>
-                                <div>
-                                    <h4>${reward.title}</h4>
-                                    <p>${reward.description}</p>
-                                </div>
-                            `;
-                            rewardsContainer.appendChild(rewardCard);
-                        });
-                        noRewardsMessage.style.display = 'none';
-                    } else {
-                        rewardsContainer.innerHTML = '';
-                        noRewardsMessage.style.display = 'block';
-                    }
-                } catch (e) {
-                    console.error("Error fetching rewards:", e);
-                    noRewardsMessage.textContent = 'Could not load rewards.';
+                const rewards = allUserData.rewards || [];
+                if (rewards.length > 0) {
+                    rewardsContainer.innerHTML = '';
+                    rewards.forEach(reward => {
+                        const rewardCard = document.createElement('div');
+                        rewardCard.className = 'reward-card';
+                        rewardCard.innerHTML = `
+                            <i class="fas fa-gift reward-icon"></i>
+                            <div>
+                                <h4>${reward.title}</h4>
+                                <p>${reward.description}</p>
+                            </div>
+                        `;
+                        rewardsContainer.appendChild(rewardCard);
+                    });
+                    noRewardsMessage.style.display = 'none';
+                } else {
+                    rewardsContainer.innerHTML = '';
                     noRewardsMessage.style.display = 'block';
                 }
             }
@@ -295,31 +284,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 const ticketsContainer = document.getElementById('ticketsContainer');
                 const noTicketsMessage = document.getElementById('noTicketsMessage');
                 
-                try {
-                    const response = await fetch(`/api/user/support-tickets/${currentUser.mobileNumber}`);
-                    const result = await response.json();
-
-                    if (result.success && result.tickets.length > 0) {
-                        ticketsContainer.innerHTML = '';
-                        result.tickets.forEach(ticket => {
-                            const ticketCard = document.createElement('div');
-                            ticketCard.className = 'support-card';
-                            ticketCard.innerHTML = `
-                                <p><strong>Ticket ID:</strong> #${ticket.ticketId}</p>
-                                <p><strong>Issue:</strong> ${ticket.issue}</p>
-                                <p><strong>Submitted On:</strong> ${ticket.submittedOn}</p>
-                                <span class="status-badge ${ticket.status.toLowerCase()}">${ticket.status}</span>
-                            `;
-                            ticketsContainer.appendChild(ticketCard);
-                        });
-                        noTicketsMessage.style.display = 'none';
-                    } else {
-                        ticketsContainer.innerHTML = '';
-                        noTicketsMessage.style.display = 'block';
-                    }
-                } catch (e) {
-                    console.error("Error fetching support tickets:", e);
-                    noTicketsMessage.textContent = 'Could not load support tickets.';
+                const tickets = allUserData.supportTickets || [];
+                if (tickets.length > 0) {
+                    ticketsContainer.innerHTML = '';
+                    tickets.forEach(ticket => {
+                        const ticketCard = document.createElement('div');
+                        ticketCard.className = 'support-card';
+                        ticketCard.innerHTML = `
+                            <p><strong>Ticket ID:</strong> #${ticket.ticketId}</p>
+                            <p><strong>Issue:</strong> ${ticket.issue}</p>
+                            <p><strong>Submitted On:</strong> ${ticket.submittedOn}</p>
+                            <span class="status-badge ${ticket.status.toLowerCase()}">${ticket.status}</span>
+                        `;
+                        ticketsContainer.appendChild(ticketCard);
+                    });
+                    noTicketsMessage.style.display = 'none';
+                } else {
+                    ticketsContainer.innerHTML = '';
                     noTicketsMessage.style.display = 'block';
                 }
             }
@@ -335,7 +316,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 e.preventDefault();
                 localStorage.clear();
                 alert('You have been logged out successfully!');
-                window.location.href = '/';
+                window.location.href = '/signin.html';
             });
         }
     }
