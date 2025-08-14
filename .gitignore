@@ -1,1 +1,12 @@
+# Dependency directories
 node_modules/
+# macOS files
+.DS_Store
+# Compiled output
+dist/
+build/
+# Log files
+*.log
+npm-debug.log*
+# Temporary files
+*.tmp
