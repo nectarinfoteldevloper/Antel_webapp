@@ -138,12 +138,6 @@
             color: var(--antel-turquoise);
         }
 
-        .button-link i {
-            margin-right: 1rem;
-            width: 20px;
-            text-align: center;
-        }
-
         .button-link.active {
             color: var(--antel-white);
             background-color: var(--antel-pink);
@@ -155,6 +149,12 @@
             background-color: var(--antel-pink);
         }
 
+        .button-link i {
+            margin-right: 1rem;
+            width: 20px;
+            text-align: center;
+        }
+
         .dashboard-content {
             flex-grow: 1;
             padding: 2.5rem;
@@ -163,26 +163,28 @@
         /* --- Main Grid Layout --- */
         .dashboard-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: 1fr 1fr;
             gap: 2rem;
             grid-template-areas:
-                "usage pack-validity pack-validity"
-                "recharge utilities utilities"
-                "promo promo promo"
-                "quick-links quick-links quick-links"
-                "map map map";
+                "top-banner top-banner"
+                "usage pack-validity"
+                "recharge utilities"
+                "promo promo"
+                "quick-links quick-links"
+                "map human-banner";
         }
         
         @media (max-width: 1200px) {
             .dashboard-grid {
                 grid-template-columns: 1fr 1fr;
                 grid-template-areas:
+                    "top-banner top-banner"
                     "usage pack-validity"
                     "recharge recharge"
                     "utilities utilities"
                     "promo promo"
                     "quick-links quick-links"
-                    "map map";
+                    "map human-banner";
             }
         }
         
@@ -201,13 +203,15 @@
             .dashboard-grid {
                 grid-template-columns: 1fr;
                 grid-template-areas:
+                    "top-banner"
                     "usage"
                     "pack-validity"
                     "recharge"
                     "utilities"
                     "promo"
                     "quick-links"
-                    "map";
+                    "map"
+                    "human-banner";
             }
         }
 
@@ -230,6 +234,25 @@
             font-weight: 600;
             margin-top: 0;
             margin-bottom: 1.5rem;
+        }
+        
+        /* --- Banners Styles --- */
+        .banner {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--box-shadow-light);
+        }
+
+        .banner.top-banner {
+            grid-area: top-banner;
+            height: 30vh;
+        }
+
+        .banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
         /* --- Specific Widget Styles --- */
@@ -468,26 +491,45 @@
             color: var(--antel-pink);
         }
 
+        /* Map and Human Banner Cards */
         .map-section {
             grid-area: map;
+            height: 40vh;
+            padding: 0; /* Remove padding to contain image */
+            display: flex;
+            flex-direction: column;
         }
         
-        .map-section h3 {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-top: 0;
+        .map-section .widget-title {
+            padding: 2rem 2rem 0; /* Add padding back to the title */
             margin-bottom: 1rem;
         }
 
         .map-container {
-            border-radius: 15px;
+            border-radius: 0 0 15px 15px; /* Adjust border radius */
             overflow: hidden;
-            box-shadow: var(--box-shadow-light);
+            box-shadow: none;
+            flex-grow: 1; /* Occupy remaining space */
         }
         
         .map-container img {
             width: 100%;
-            height: auto;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .human-banner-card {
+            grid-area: human-banner;
+            height: 40vh;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .human-banner-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
             display: block;
         }
     </style>
@@ -521,6 +563,10 @@
         
         <main class="dashboard-content">
             <div class="dashboard-grid">
+                <section class="banner top-banner">
+                    <a href="#"><img src="images/logo.png" alt="AnTel Promotional Banner" /></a>
+                </section>
+                
                 <section class="dashboard-widget usage-summary-card">
                     <h2 class="widget-title">Your Usage</h2>
                     <div class="usage-item">
@@ -541,6 +587,15 @@
                     </div>
                 </section>
                 
+                <section class="recharge-banner">
+                    <div class="recharge-banner-content">
+                        <h4>Special Offer</h4>
+                        <p>Get **100GB** at no extra cost when you recharge with ₹1198.</p>
+                        <a href="#" class="primary-button">Recharge Now</a>
+                    </div>
+                    <span class="promo-graphic">🚀</span>
+                </section>
+
                 <section class="dashboard-widget utilities-card">
                     <h2 class="widget-title">Utilities</h2>
                     <div class="utility-grid">
@@ -561,15 +616,6 @@
                             <span>Mobile Postpaid</span>
                         </a>
                     </div>
-                </section>
-
-                <section class="recharge-banner">
-                    <div class="recharge-banner-content">
-                        <h4>Special Offer</h4>
-                        <p>Get **100GB** at no extra cost when you recharge with ₹1198.</p>
-                        <a href="#" class="primary-button">Recharge Now</a>
-                    </div>
-                    <span class="promo-graphic">🚀</span>
                 </section>
                 
                 <section class="promo-banner-large">
@@ -598,12 +644,18 @@
                         <p>Track your requests and complaints</p>
                     </a>
                 </section>
-
+                
                 <section class="dashboard-widget map-section">
-                    <h3>Find Your Nearest AnTel Store</h3>
+                    <h3 class="widget-title">Find Your Nearest AnTel Store</h3>
                     <div class="map-container">
                         <img src="images/Antel_Location_ .png" alt="Map of AnTel store locations" />
                     </div>
+                </section>
+
+                <section class="dashboard-widget human-banner-card">
+                    <a href="#">
+                        <img src="images/Human.png" alt="AnTel Promotional Banner" />
+                    </a>
                 </section>
             </div>
         </main>
