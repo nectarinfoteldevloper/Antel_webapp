@@ -12,9 +12,10 @@
     <style>
         /* AnTel Color Palette & Global Styles */
         :root {
-            --antel-orange: #FF8F00;
-            --antel-pink: #E20074;
-            --antel-turquoise: #00796B;
+            --antel-primary-blue: #6b91bc;
+            --antel-primary-blue-dark: #58799f;
+            --antel-success-green: #28a745;
+            --antel-due-red: #dc3545;
             --antel-white: #FAFAFA;
             --antel-text-dark: #333;
             --antel-light-gray: #f5f5f5;
@@ -52,7 +53,7 @@
         .logo-placeholder {
             font-weight: 700;
             font-size: 1.8rem;
-            color: var(--antel-orange);
+            color: var(--antel-primary-blue);
             margin-bottom: 2.5rem;
             display: block;
         }
@@ -72,7 +73,7 @@
         .profile-avatar {
             width: 50px;
             height: 50px;
-            background-color: var(--antel-pink);
+            background-color: var(--antel-primary-blue);
             color: var(--antel-white);
             border-radius: 50%;
             display: flex;
@@ -135,7 +136,7 @@
 
         .button-link:hover {
             background-color: rgba(0, 121, 107, 0.1);
-            color: var(--antel-turquoise);
+            color: var(--antel-light-blue-text);
         }
 
         .button-link i {
@@ -146,13 +147,13 @@
 
         .button-link.active {
             color: var(--antel-white);
-            background-color: var(--antel-pink);
-            box-shadow: 0 4px 10px rgba(226, 0, 116, 0.2);
+            background-color: var(--antel-primary-blue);
+            box-shadow: 0 4px 10px rgba(107, 145, 188, 0.2);
         }
 
         .button-link.active:hover {
             color: var(--antel-white);
-            background-color: var(--antel-pink);
+            background-color: var(--antel-primary-blue-dark);
         }
 
         .dashboard-content {
@@ -245,7 +246,7 @@
         
         .bill-info-item .value.amount {
             font-size: 2rem;
-            color: var(--antel-pink);
+            color: var(--antel-primary-blue);
         }
 
         .status-badge {
@@ -258,11 +259,11 @@
         }
         
         .status-badge.due {
-            background-color: #f75c4b;
+            background-color: var(--antel-due-red);
         }
         
         .status-badge.paid {
-            background-color: var(--antel-turquoise);
+            background-color: var(--antel-success-green);
         }
 
         .button-group {
@@ -278,16 +279,16 @@
             font-weight: 600;
             cursor: pointer;
             text-decoration: none;
-            background-color: var(--antel-pink);
+            background-color: var(--antel-primary-blue);
             color: var(--antel-white);
             border: none;
             transition: all var(--transition-speed);
         }
         
         .primary-button:hover {
-            background-color: #c90064;
+            background-color: var(--antel-primary-blue-dark);
             transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(226, 0, 116, 0.2);
+            box-shadow: 0 4px 10px rgba(107, 145, 188, 0.2);
         }
 
         .secondary-button {

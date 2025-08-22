@@ -12,9 +12,8 @@
     <style>
         /* AnTel Color Palette & Global Styles */
         :root {
-            --antel-orange: #FF8F00;
-            --antel-pink: #E20074;
-            --antel-turquoise: #00796B;
+            --antel-primary-blue: #6b91bc;
+            --antel-primary-blue-dark: #58799f;
             --antel-white: #FAFAFA;
             --antel-text-dark: #333;
             --antel-light-gray: #f5f5f5;
@@ -52,7 +51,7 @@
         .logo-placeholder {
             font-weight: 700;
             font-size: 1.8rem;
-            color: var(--antel-orange);
+            color: var(--antel-primary-blue);
             margin-bottom: 2.5rem;
             display: block;
         }
@@ -72,7 +71,7 @@
         .profile-avatar {
             width: 50px;
             height: 50px;
-            background-color: var(--antel-pink);
+            background-color: var(--antel-primary-blue);
             color: var(--antel-white);
             border-radius: 50%;
             display: flex;
@@ -100,7 +99,7 @@
 
         .user-status {
             background-color: var(--antel-light-blue-bg);
-            color: var(--antel-turquoise);
+            color: var(--antel-light-blue-text);
             font-size: 0.75rem;
             padding: 0.2rem 0.6rem;
             border-radius: 12px;
@@ -135,18 +134,18 @@
 
         .button-link:hover {
             background-color: rgba(0, 121, 107, 0.1);
-            color: var(--antel-turquoise);
+            color: var(--antel-light-blue-text);
         }
 
         .button-link.active {
             color: var(--antel-white);
-            background-color: var(--antel-pink);
-            box-shadow: 0 4px 10px rgba(226, 0, 116, 0.2);
+            background-color: var(--antel-primary-blue);
+            box-shadow: 0 4px 10px rgba(107, 145, 188, 0.2);
         }
         
         .button-link.active:hover {
             color: var(--antel-white);
-            background-color: var(--antel-pink);
+            background-color: var(--antel-primary-blue-dark);
         }
 
         .button-link i {
@@ -304,7 +303,7 @@
         .usage-metric {
             font-size: 2.5rem;
             font-weight: 700;
-            color: var(--antel-orange);
+            color: var(--antel-primary-blue);
             margin: 0;
         }
 
@@ -354,13 +353,13 @@
         }
 
         .primary-button {
-            background-color: var(--antel-pink);
+            background-color: var(--antel-primary-blue);
             color: var(--antel-white);
             border: none;
         }
         
         .primary-button:hover {
-            background-color: #c90064;
+            background-color: var(--antel-primary-blue-dark);
             transform: translateY(-2px);
         }
 
@@ -377,7 +376,7 @@
         
         .recharge-banner .promo-graphic {
             font-size: 3em;
-            color: var(--antel-turquoise);
+            color: var(--antel-light-blue-text);
         }
         
         .recharge-banner-content h4 {
@@ -429,7 +428,7 @@
         }
         
         .utility-item:hover .utility-icon-wrapper {
-            background-color: var(--antel-pink);
+            background-color: var(--antel-primary-blue);
         }
         
         .utility-item:hover .utility-icon {
@@ -438,13 +437,13 @@
         
         .utility-icon {
             font-size: 1.8rem;
-            color: var(--antel-orange);
+            color: var(--antel-primary-blue);
             transition: color var(--transition-speed);
         }
 
         .promo-banner-large {
             grid-area: promo;
-            background-image: linear-gradient(to right bottom, var(--antel-orange), var(--antel-pink));
+            background-image: linear-gradient(to right bottom, var(--antel-primary-blue), var(--antel-primary-blue-dark));
             color: var(--antel-white);
             padding: 2.5rem;
             border-radius: 15px;
@@ -521,7 +520,7 @@
         
         .link-icon {
             font-size: 2.5rem;
-            color: var(--antel-pink);
+            color: var(--antel-primary-blue);
         }
 
         /* Map and Human Banner Cards */
