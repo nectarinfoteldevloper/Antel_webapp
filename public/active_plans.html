@@ -8,11 +8,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
+
     <style>
         /* Angola Telecom Color Palette & Global Styles */
         :root {
             --antel-primary-blue: #004687;
+            --antel-primary-blue-light: #0079c0;
             --antel-primary-blue-dark: #58799f;
             --antel-white: #FAFAFA;
             --antel-text-dark: #333;
@@ -33,11 +34,82 @@
             color: var(--antel-text-dark);
         }
 
+        /* --- New Header Styles from Dashboard --- */
+        .main-header {
+            position: static;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background-color: var(--antel-primary-blue-light);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2.5rem;
+            box-sizing: border-box;
+            color: var(--antel-white);
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+        
+        .main-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+            background-size: 4px 4px;
+            pointer-events: none;
+        }
+
+        .logo-placeholder {
+            background-image: url('images/Anlogo.png');
+            background-size: 100px;
+            background-repeat: no-repeat;
+            background-position: left center;
+            height: 80px;
+            width: 100px;
+            display: block;
+            filter: brightness(0) invert(1);
+        }
+        
+        .logo-placeholder span {
+            display: block;
+            text-indent: -9999px;
+            overflow: hidden;
+        }
+
+        .header-logout-button {
+            background: none;
+            border: none;
+            color: var(--antel-white);
+            font-size: 1em;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: background-color var(--transition-speed);
+        }
+
+        .header-logout-button:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+        /* --- End of New Header Styles --- */
+
         .dashboard-container {
             display: flex;
             min-height: 100vh;
         }
-        
+
         .dashboard-sidebar {
             width: 280px;
             background-color: var(--antel-white);
@@ -48,12 +120,9 @@
             transition: width var(--transition-speed);
         }
 
-        .logo-placeholder {
-            font-weight: 700;
-            font-size: 1.8rem;
-            color: var(--antel-primary-blue);
-            margin-bottom: 2.5rem;
-            display: block;
+        /* Updated logo styles - old logo placeholder and its styles have been removed */
+        .sidebar-logo {
+            display: none;
         }
 
         .user-profile-summary {
@@ -80,7 +149,7 @@
             font-size: 1.2rem;
             font-weight: bold;
         }
-        
+
         .profile-details {
             display: flex;
             flex-direction: column;
@@ -91,7 +160,7 @@
             font-weight: 600;
             font-size: 1em;
         }
-        
+
         #sidebarUserMobile {
             font-size: 0.9em;
             color: var(--antel-gray);
@@ -116,11 +185,11 @@
             padding: 10px;
             box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
         }
-        
+
         .sidebar-menu li {
             margin-bottom: 0.5rem;
         }
-        
+
         .button-link {
             display: flex;
             align-items: center;
@@ -158,7 +227,7 @@
             flex-grow: 1;
             padding: 2.5rem;
         }
-        
+
         @media (max-width: 768px) {
             .dashboard-container {
                 flex-direction: column;
@@ -173,6 +242,7 @@
             }
         }
 
+        /* Updated page header for the logo */
         .page-header {
             display: flex;
             justify-content: space-between;
@@ -185,7 +255,12 @@
             font-weight: 700;
             margin: 0;
         }
-        
+
+        .header-logo {
+            width: 60px;
+            height: auto;
+        }
+
         .content-section {
             display: grid;
             gap: 2rem;
@@ -233,13 +308,13 @@
             gap: 1.5rem;
             margin-bottom: 1.5rem;
         }
-        
+
         .detail-item {
             display: flex;
             align-items: center;
             gap: 1rem;
         }
-        
+
         .detail-item i {
             font-size: 1.5rem;
             color: var(--antel-primary-blue);
@@ -250,7 +325,7 @@
             margin: 0;
             font-size: 1em;
         }
-        
+
         .detail-item .value {
             font-size: 0.9em;
             color: var(--antel-gray);
@@ -273,13 +348,13 @@
             transition: width var(--transition-speed) ease-in-out;
             width: 73%; /* Dynamic value from your app.js */
         }
-        
+
         .button-group {
             display: flex;
             gap: 1rem;
             margin-top: 2rem;
         }
-        
+
         .primary-button {
             padding: 12px 24px;
             border-radius: 8px;
@@ -292,7 +367,7 @@
             border: none;
             transition: all var(--transition-speed);
         }
-        
+
         .primary-button:hover {
             background-color: var(--antel-primary-blue-dark);
             transform: translateY(-2px);
@@ -319,9 +394,19 @@
     </style>
 </head>
 <body>
+    <header class="main-header">
+        <div class="logo-placeholder">
+            <span>Angola Telecom</span>
+        </div>
+        <button id="logoutButton" class="header-logout-button"><i class="fas fa-sign-out-alt"></i> Logout</button>
+    </header>
     <div class="dashboard-container">
         <aside class="dashboard-sidebar">
-            <div class="sidebar-logo"><div class="logo-placeholder">Angola Telecom</div></div>
+            <div class="sidebar-logo">
+                <div class="logo-placeholder">
+                    <span>Angola Telecom</span>
+                </div>
+            </div>
             <div class="user-profile-summary">
                 <div class="profile-info-block">
                     <div class="profile-avatar">P</div>
@@ -356,7 +441,7 @@
                         <h3>Current Plan: 1.5 GB/Day</h3>
                         <span class="status">Active</span>
                     </div>
-                    
+
                     <div class="plan-details-grid">
                         <div class="detail-item">
                             <i class="fas fa-calendar-alt"></i>
@@ -386,7 +471,7 @@
                     <div class="progress-bar-container">
                         <div class="progress-bar-fill"></div>
                     </div>
-                    
+
                     <div class="button-group">
                         <a href="#" class="primary-button">Recharge Now</a>
                         <a href="#" class="secondary-button">View all plans</a>

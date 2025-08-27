@@ -13,6 +13,7 @@
         /* Angola Telecom Color Palette & Global Styles */
         :root {
             --antel-primary-blue: #004687;
+            --antel-primary-blue-light: #0079c0;
             --antel-primary-blue-dark: #58799f;
             --antel-turquoise: #00796B;
             --antel-white: #FAFAFA;
@@ -36,6 +37,77 @@
             color: var(--antel-text-dark);
         }
 
+        /* --- New Header Styles from Dashboard --- */
+        .main-header {
+            position: static;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background-color: var(--antel-primary-blue-light);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2.5rem;
+            box-sizing: border-box;
+            color: var(--antel-white);
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+        
+        .main-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+            background-size: 4px 4px;
+            pointer-events: none;
+        }
+
+        .logo-placeholder {
+            background-image: url('images/Anlogo.png');
+            background-size: 100px;
+            background-repeat: no-repeat;
+            background-position: left center;
+            height: 80px;
+            width: 100px;
+            display: block;
+            filter: brightness(0) invert(1);
+        }
+        
+        .logo-placeholder span {
+            display: block;
+            text-indent: -9999px;
+            overflow: hidden;
+        }
+
+        .header-logout-button {
+            background: none;
+            border: none;
+            color: var(--antel-white);
+            font-size: 1em;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: background-color var(--transition-speed);
+        }
+
+        .header-logout-button:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+        /* --- End of New Header Styles --- */
+
         .dashboard-container {
             display: flex;
             min-height: 100vh;
@@ -51,12 +123,27 @@
             transition: width var(--transition-speed);
         }
 
-        .logo-placeholder {
+        /* Updated logo styles */
+        .sidebar-logo {
             font-weight: 700;
             font-size: 1.8rem;
             color: var(--antel-primary-blue);
             margin-bottom: 2.5rem;
             display: block;
+            background-image: url('images/Anlogo.png'); /* Set the path to your logo */
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            height: 50px;
+            padding-top: 30px;
+            padding-bottom: 30px;
+        }
+        
+        /* Hide the text but keep it accessible */
+        .sidebar-logo span {
+            display: block;
+            text-indent: -9999px;
+            overflow: hidden;
         }
 
         .user-profile-summary {
@@ -324,10 +411,16 @@
     </style>
 </head>
 <body>
+    <header class="main-header">
+        <div class="logo-placeholder">
+            <span>Angola Telecom</span>
+        </div>
+        <button id="logoutButton" class="header-logout-button"><i class="fas fa-sign-out-alt"></i> Logout</button>
+    </header>
     <div class="dashboard-container">
         <aside class="dashboard-sidebar">
-            <div class="logo-placeholder">Angola Telecom</div>
-            <div class="user-profile-summary">
+            
+<div class="user-profile-summary">
                 <div class="profile-info-block">
                     <div class="profile-avatar">P</div>
                     <div class="profile-details">

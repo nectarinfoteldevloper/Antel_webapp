@@ -46,10 +46,18 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
 
-        /* Image Section */
+        /* Image Section with matte texture */
         .signin-image-section {
             flex: 1;
+            /* Existing background gradients */
             background-image: linear-gradient(to right bottom, var(--antel-primary-blue), var(--antel-primary-blue-dark));
+            /* New texture layer */
+            background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                              linear-gradient(to right bottom, var(--antel-primary-blue), var(--antel-primary-blue-dark));
+            background-size: 8px 8px, 8px 8px, 100% 100%;
+            background-blend-mode: overlay, overlay, normal;
+            
             color: var(--antel-white);
             padding: 3rem;
             display: flex;
@@ -57,18 +65,18 @@
             justify-content: center;
             position: relative;
         }
-
-        .signin-image-section .logo {
+        
+        /* Optional sheen effect for a softer look */
+        .signin-image-section::before {
+            content: '';
             position: absolute;
-            top: 20px;
-            left: 20px;
-        }
-
-        .signin-image-section .logo-placeholder {
-            font-weight: 900;
-            font-size: 2.5rem;
-            color: var(--antel-white);
-            filter: none;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            opacity: 0.5;
+            pointer-events: none;
         }
 
         .signin-image-section h1 {
@@ -91,12 +99,14 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+            position: relative;
         }
 
         #formTitle {
             color: var(--antel-text-dark);
             font-size: 2rem;
             font-weight: 700;
+            margin-top: 5rem;
             margin-bottom: 2rem;
         }
 
@@ -121,12 +131,12 @@
             box-sizing: border-box;
             font-size: 1em;
         }
-        
+
         .toggle-form-link {
             margin-top: 15px;
             font-size: 0.9em;
         }
-        
+
         .toggle-form-link a {
             color: var(--antel-primary-blue);
             text-decoration: none;
@@ -166,7 +176,7 @@
             margin-top: 2rem;
             text-align: center;
         }
-        
+
         .qr-code-placeholder {
             background-color: #f0f0f0;
             border: 1px solid var(--antel-faint-gray);
@@ -179,13 +189,13 @@
             font-size: 0.8em;
             line-height: 1.2;
         }
-        
+
         .download-app-section p:first-of-type {
             font-size: 1em;
             font-weight: bold;
             margin: 0;
         }
-        
+
         .download-app-section p:last-of-type {
             font-size: 0.8em;
             color: var(--antel-gray);
@@ -197,15 +207,10 @@
             .signin-content {
                 flex-direction: column;
             }
-            
+
             .signin-image-section {
                 padding: 2rem;
                 text-align: center;
-            }
-            
-            .signin-image-section .logo {
-                position: static;
-                margin-bottom: 2rem;
             }
 
             .signin-form-section {
@@ -218,7 +223,6 @@
     <div class="signin-page-wrapper">
         <div class="signin-content">
             <div class="signin-image-section">
-                <div class="logo"><div class="logo-placeholder">Angola Telecom</div></div>
                 <h1>One place to manage all your plans and payments</h1>
                 <p>Seamlessly manage your Angola Telecom mobile and broadband services.</p>
             </div>

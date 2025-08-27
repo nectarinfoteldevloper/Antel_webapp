@@ -13,6 +13,7 @@
         /* Angola Telecom Color Palette & Global Styles */
         :root {
             --antel-primary-blue: #004687;
+            --antel-primary-blue-light: #0079c0;
             --antel-primary-blue-dark: #58799f;
             --antel-white: #FAFAFA;
             --antel-text-dark: #333;
@@ -25,12 +26,102 @@
             --box-shadow-light: 0 4px 12px rgba(0,0,0,0.08);
             --transition-speed: 0.3s;
         }
-        
+
         body {
             font-family: 'Poppins', sans-serif;
             margin: 0;
             background-color: var(--antel-light-bg);
             color: var(--antel-text-dark);
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Textured Finish for the entire page */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+            background-size: 4px 4px;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* --- Fixed Header --- */
+        .main-header {
+            position: static;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background-color: var(--antel-primary-blue-light);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2.5rem;
+            box-sizing: border-box;
+            color: var(--antel-white);
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+        
+        .main-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+            background-size: 4px 4px;
+            pointer-events: none;
+        }
+
+        .logo-placeholder {
+            background-image: url('images/Anlogo.png');
+            background-size: 100px;
+            background-repeat: no-repeat;
+            background-position: left center;
+            height: 80px;
+            width: 100px;
+            display: block;
+            /* Filter to make the logo white */
+            filter: brightness(0) invert(1);
+        }
+        
+        .logo-placeholder span {
+            display: block;
+            text-indent: -9999px;
+            overflow: hidden;
+        }
+
+        /* Logout button in header */
+        .header-logout-button {
+            background: none;
+            border: none;
+            color: var(--antel-white);
+            font-size: 1em;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: background-color var(--transition-speed);
+        }
+
+        .header-logout-button:hover {
+            background-color: rgba(255, 255, 255, 0.15);
         }
 
         .dashboard-container {
@@ -47,15 +138,11 @@
             flex-direction: column;
             transition: width var(--transition-speed);
         }
-
-        .logo-placeholder {
-            font-weight: 700;
-            font-size: 1.8rem;
-            color: var(--antel-primary-blue);
-            margin-bottom: 2.5rem;
-            display: block;
+        
+        .dashboard-sidebar .logo-placeholder {
+            display: none;
         }
-
+        
         .user-profile-summary {
             margin-bottom: 2rem;
             padding-bottom: 1rem;
@@ -177,6 +264,7 @@
 
         .sidebar-promos a:hover {
             transform: translateY(-5px);
+            filter: brightness(1.1);
         }
 
         .sidebar-promos img {
@@ -200,18 +288,20 @@
             grid-template-areas:
                 "top-banner top-banner"
                 "usage pack-validity"
+                "promo-ad-1 promo-ad-2"
                 "recharge utilities"
                 "promo promo"
                 "quick-links quick-links"
                 "map human-banner";
         }
         
-        @media (max-width: 1200px) {
+        @media (max-width: 1600px) {
             .dashboard-grid {
                 grid-template-columns: 1fr 1fr;
                 grid-template-areas:
                     "top-banner top-banner"
                     "usage pack-validity"
+                    "promo-ad-1 promo-ad-2"
                     "recharge recharge"
                     "utilities utilities"
                     "promo promo"
@@ -238,12 +328,19 @@
                     "top-banner"
                     "usage"
                     "pack-validity"
+                    "promo-ad-1"
+                    "promo-ad-2"
                     "recharge"
                     "utilities"
                     "promo"
                     "quick-links"
                     "map"
                     "human-banner";
+            }
+
+            .main-header {
+                padding: 0 1rem;
+                border-radius: 20%;
             }
         }
 
@@ -264,7 +361,7 @@
         .widget-title {
             font-size: 1.25rem;
             font-weight: 600;
-            margin-top: 0;
+            margin-top: 1rem;
             margin-bottom: 1.5rem;
         }
         
@@ -273,18 +370,134 @@
             border-radius: 15px;
             overflow: hidden;
             box-shadow: var(--box-shadow-light);
+            position: relative;
         }
 
         .banner.top-banner {
             grid-area: top-banner;
-            height: 30vh;
+            /* Increased height to ensure images are not cropped */
+            height: 90vh; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .banner img {
+        /* Carousel specific styles */
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden; /* Hides images that are outside the container */
+        }
+
+        .carousel-slides {
+            display: flex;
+            width: 150%;
+            height: 100%;
+            /* Smooth transition for the slide movement */
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-slide {
+            /* Makes each slide take up the full width of the container */
+            min-width: 90%; 
+            height: 100%;
+            /* Prevents slides from shrinking */
+            flex-shrink: 0;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            /* Ensures image fills the container without distortion (may crop) */
+            object-fit: cover;
+            display: block;
+        }
+
+        .carousel-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 1rem 1.2rem;
+            cursor: pointer;
+            font-size: 1.5rem;
+            border-radius: 50%;
+            z-index: 10;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .carousel-button:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .carousel-button.prev {
+            left: 1rem;
+        }
+
+        .carousel-button.next {
+            right: 1rem;
+        }
+
+        .carousel-indicators {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.5rem;
+            z-index: 10;
+        }
+
+        .indicator-dot {
+            width: 10px;
+            height: 10px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .indicator-dot.active {
+            background-color: var(--antel-primary-blue);
+            transform: scale(1.2);
+        }
+
+        .indicator-dot:hover {
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* New Promo Ad Card Styling */
+        .promo-ad-card {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--box-shadow-light);
+            transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+        }
+        
+        .promo-ad-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .promo-ad-card img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             display: block;
+        }
+
+        .promo-ad-1 {
+            grid-area: promo-ad-1;
+            height: 35vh;
+        }
+
+        .promo-ad-2 {
+            grid-area: promo-ad-2;
+            height: 35vh;
         }
 
         /* --- Specific Widget Styles --- */
@@ -377,6 +590,7 @@
         .recharge-banner .promo-graphic {
             font-size: 3em;
             color: var(--antel-light-blue-text);
+            animation: bounce 2s infinite ease-in-out;
         }
         
         .recharge-banner-content h4 {
@@ -412,7 +626,7 @@
             transition: transform var(--transition-speed);
         }
         
-.utility-item:hover {
+        .utility-item:hover {
             transform: translateY(-5px);
         }
         
@@ -429,16 +643,38 @@
         
         .utility-item:hover .utility-icon-wrapper {
             background-color: var(--antel-primary-blue);
-        }
-        
-        .utility-item:hover .utility-icon {
-            color: var(--antel-white);
+            animation: pulse 1s infinite;
         }
         
         .utility-icon {
             font-size: 1.8rem;
             color: var(--antel-primary-blue);
             transition: color var(--transition-speed);
+        }
+
+        .utility-item:hover .utility-icon {
+            color: var(--antel-white);
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
         }
 
         .promo-banner-large {
@@ -451,6 +687,12 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+        }
+
+        .promo-banner-large:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
         }
         
         .promo-content h3 {
@@ -526,22 +768,22 @@
         /* Map and Human Banner Cards */
         .map-section {
             grid-area: map;
-            height: 40vh;
-            padding: 0; /* Remove padding to contain image */
+            height: 50vh;
+            padding: 2rem;
             display: flex;
             flex-direction: column;
         }
         
         .map-section .widget-title {
-            padding: 2rem 2rem 0; /* Add padding back to the title */
+            padding: 2rem 2rem 0;
             margin-bottom: 1rem;
         }
 
         .map-container {
-            border-radius: 0 0 15px 15px; /* Adjust border radius */
+            border-radius: 0 0 15px 15px;
             overflow: hidden;
             box-shadow: none;
-            flex-grow: 1; /* Occupy remaining space */
+            flex-grow: 1;
         }
         
         .map-container img {
@@ -553,8 +795,8 @@
 
         .human-banner-card {
             grid-area: human-banner;
-            height: 40vh;
-            padding: 0;
+            height: 50vh;
+            padding: 2rem;
             overflow: hidden;
         }
 
@@ -567,9 +809,14 @@
     </style>
 </head>
 <body>
+    <header class="main-header">
+        <div class="logo-placeholder">
+            <span>Angola Telecom</span>
+        </div>
+        <button id="logoutButton" class="header-logout-button"><i class="fas fa-sign-out-alt"></i> Logout</button>
+    </header>
     <div class="dashboard-container">
         <aside class="dashboard-sidebar">
-            <div class="logo-placeholder">Angola Telecom</div>
             <div class="user-profile-summary">
                 <div class="profile-info-block">
                     <div class="profile-avatar">P</div>
@@ -589,7 +836,6 @@
                 <li><a href="/support.html" class="button-link"><i class="fas fa-headset"></i> Support</a></li>
                 <li><a href="/rewards.html" class="button-link"><i class="fas fa-gift"></i> Rewards</a></li>
                 <li><a href="/my_devices.html" class="button-link"><i class="fas fa-mobile-alt"></i> My Devices</a></li>
-                <li><a href="#" id="logoutButton" class="button-link"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
             </ul>
             <div class="sidebar-promos">
                 <a href="#"><img src="images/promo1.png" alt="Promotional Offer 1" class="sidebar-promo-img"></a>
@@ -600,7 +846,15 @@
         <main class="dashboard-content">
             <div class="dashboard-grid">
                 <section class="banner top-banner">
-                    <a href="#"><img src="images/logo.png" alt="Angola Telecom Promotional Banner" /></a>
+                    <div class="carousel-container">
+                        <div class="carousel-slides">
+                            <div class="carousel-slide"><img src="images/logo.png" alt="Angola Telecom Promotional Banner 1" /></div>
+                            <div class="carousel-slide"><img src="images/advertisement.png" alt="Angola Telecom Promotional Banner 2" /></div>
+                        </div>
+                        <button class="carousel-button prev" aria-label="Previous slide"><i class="fas fa-chevron-left"></i></button>
+                        <button class="carousel-button next" aria-label="Next slide"><i class="fas fa-chevron-right"></i></button>
+                        <div class="carousel-indicators"></div>
+                    </div>
                 </section>
                 
                 <section class="dashboard-widget usage-summary-card">
@@ -622,11 +876,19 @@
                         <a href="#" class="primary-button">Recharge Now</a>
                     </div>
                 </section>
+
+                <section class="promo-ad-card promo-ad-1">
+                    <a href="#"><img src="images/promo5.png" alt="Promotional Offer 5" /></a>
+                </section>
+
+                <section class="promo-ad-card promo-ad-2">
+                    <a href="#"><img src="images/promo6.png" alt="Promotional Offer 6" /></a>
+                </section>
                 
                 <section class="recharge-banner">
                     <div class="recharge-banner-content">
                         <h4>Special Offer</h4>
-                        <p>Get **100GB** at no extra cost when you recharge with ₹1198.</p>
+                        <p>Get 100GB at no extra cost when you recharge with ₹1198.</p>
                         <a href="#" class="primary-button">Recharge Now</a>
                     </div>
                     <span class="promo-graphic">🚀</span>
@@ -637,7 +899,7 @@
                     <div class="utility-grid">
                         <a href="#" class="utility-item">
                             <div class="utility-icon-wrapper"><i class="fas fa-bolt utility-icon"></i></div>
-                            <span>Electricity</span>
+                            <span>Mobile Prepaid</span>
                         </a>
                         <a href="#" class="utility-item">
                             <div class="utility-icon-wrapper"><i class="fas fa-coins utility-icon"></i></div>
@@ -657,7 +919,7 @@
                 <section class="promo-banner-large">
                     <div class="promo-content">
                         <h3>Unlock unlimited data!</h3>
-                        <p>Get unlimited data from **12 AM - 12 PM** starting at only ₹385.</p>
+                        <p>Get unlimited data from 12 AM - 12 PM starting at only ₹385.</p>
                         <a href="#" class="promo-button">Explore Plan</a>
                     </div>
                     <span class="promo-graphic">💡</span>
@@ -696,6 +958,77 @@
             </div>
         </main>
     </div>
-    <script src="./js/app.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelector('.carousel-slides');
+            const slideImages = document.querySelectorAll('.carousel-slide');
+            const prevButton = document.querySelector('.carousel-button.prev');
+            const nextButton = document.querySelector('.carousel-button.next');
+            const indicatorsContainer = document.querySelector('.carousel-indicators');
+            let currentIndex = 0;
+            const totalSlides = slideImages.length;
+            let autoSlideInterval;
+
+            // Create indicators
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('div');
+                dot.classList.add('indicator-dot');
+                dot.dataset.index = i;
+                if (i === 0) dot.classList.add('active');
+                indicatorsContainer.appendChild(dot);
+            }
+            const indicatorDots = document.querySelectorAll('.indicator-dot');
+
+            function updateCarousel() {
+                slides.style.transform = `translateX(-${currentIndex * 100}%)`;
+                indicatorDots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === currentIndex);
+                });
+            }
+
+            function goToSlide(index) {
+                currentIndex = index;
+                updateCarousel();
+                resetAutoSlide();
+            }
+
+            function showNextSlide() {
+                currentIndex = (currentIndex + 1) % totalSlides;
+                updateCarousel();
+            }
+
+            function showPrevSlide() {
+                currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+                updateCarousel();
+            }
+
+            function startAutoSlide() {
+                autoSlideInterval = setInterval(showNextSlide, 5000);
+            }
+
+            function resetAutoSlide() {
+                clearInterval(autoSlideInterval);
+                startAutoSlide();
+            }
+
+            prevButton.addEventListener('click', showPrevSlide);
+            nextButton.addEventListener('click', showNextSlide);
+
+            indicatorsContainer.addEventListener('click', (e) => {
+                if (e.target.classList.contains('indicator-dot')) {
+                    const index = parseInt(e.target.dataset.index);
+                    goToSlide(index);
+                }
+            });
+
+            const carouselContainer = document.querySelector('.carousel-container');
+            carouselContainer.addEventListener('mouseenter', () => clearInterval(autoSlideInterval));
+            carouselContainer.addEventListener('mouseleave', startAutoSlide);
+
+            updateCarousel();
+            startAutoSlide();
+        });
+    </script>
 </body>
 </html>

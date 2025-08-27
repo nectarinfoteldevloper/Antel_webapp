@@ -54,16 +54,15 @@
             align-items: center;
         }
 
-        .logo-text {
-            font-weight: 700;
-            font-size: 1.8rem;
-            color: var(--antel-primary-blue);
-            text-decoration: none;
-            transition: color var(--transition-speed);
+        /* Updated logo styles */
+        .logo-link {
+            display: inline-block;
         }
         
-        .logo-text:hover {
-            color: var(--antel-primary-blue-dark);
+        .logo-link img {
+            height: 60px; /* Reduced height to make it shorter */
+            width: auto;
+            display: block;
         }
 
         .main-nav ul {
@@ -120,20 +119,67 @@
             transform: translateY(-2px);
         }
         
-        /* Hero Section */
+        /* Hero Section - New Design */
         .hero-section {
-            background: linear-gradient(to right, #6b91bc, #58799f);
+            background: linear-gradient(to right, #004687, #0079c0); /* Deeper blue gradient */
             color: var(--antel-white);
             padding: 5rem 0;
+            position: relative; /* For pseudo-elements */
+            overflow: hidden; /* Hide overflowing patterns */
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 15px 15px; /* Adjust pattern density */
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1; /* Ensure content is above pattern */
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Center content */
+            text-align: center;
+            flex-direction: column;
         }
 
         .hero-content h1 {
-            font-size: 3rem;
-            font-weight: 700;
+            font-size: 3.5rem; /* Slightly larger for impact */
+            font-weight: 800; /* Bolder font weight */
             margin: 0;
             line-height: 1.2;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.3); /* Subtle text shadow */
         }
 
+        .hero-content .rocket-icon {
+            font-size: 4rem; /* Larger rocket icon */
+            margin-bottom: 1rem; /* Space below icon */
+            color: #ffeb3b; /* A yellow color for the rocket */
+            animation: bounce 2s infinite ease-in-out; /* Simple bounce animation */
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        
         /* Advertisement Banner Style */
         .ad-banner {
             padding: 2rem 0;
@@ -399,16 +445,18 @@
             gap: 2rem;
             margin-bottom: 2rem;
         }
-
-        .footer-col a.logo-text {
-            color: var(--antel-primary-blue);
-            font-size: 2rem;
-        }
         
+        /* New footer logo styles */
+        .footer-logo-link img {
+            height: 60px; /* Adjust height as needed */
+            width: auto;
+            filter: brightness(0) invert(1); /* Inverts the colors to make a white version */
+        }
+
         .footer-col h4 {
             font-size: 1.1rem;
             font-weight: 600;
-            color: var(--antel-primary-blue);
+            color: var(--antel-white);
             margin-bottom: 1rem;
         }
 
@@ -463,7 +511,9 @@
 <body>
     <header class="vi-header">
         <div class="container">
-            <a href="#" class="logo-text">Angola Telecom</a>
+            <a href="#" class="logo-link">
+                <img src="images/Anlogo.png" alt="Angola Telecom Logo">
+            </a>
             <nav class="main-nav">
                 <ul>
                     <li><a href="#">Prepaid</a></li>
@@ -485,9 +535,8 @@
     <main>
         <section class="hero-section">
             <div class="container hero-content">
-                <div class="hero-left">
-                    <h1>There's always more with Angola Telecom 🚀</h1>
-                </div>
+                <span class="rocket-icon">🚀</span>
+                <h1>There's always more with Angola Telecom</h1>
             </div>
         </section>
         
@@ -656,7 +705,9 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-col">
-                    <a href="#" class="logo-text">Angola Telecom</a>
+                    <a href="#" class="footer-logo-link">
+                        <img src="images/Anlogo.png" alt="Angola Telecom Logo">
+                    </a>
                     <p class="company-desc">Vodafone Idea Limited, a partnership between the Aditya Birla Group & Vodafone Group, provides pan-India voice and data services using the latest communication technologies</p>
                 </div>
                 <div class="footer-col">
