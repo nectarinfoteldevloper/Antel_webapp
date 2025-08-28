@@ -296,10 +296,10 @@
             grid-template-areas:
                 "usage        pack-validity"
                 "utilities    recharge" 
-                "top-banner   top-banner"
                 "promo-ad-1   promo-ad-2"
                 "promo        promo"
                 "quick-links  quick-links"
+                "top-banner   top-banner"
                 "map          human-banner";
         }
         
@@ -309,10 +309,10 @@
                 grid-template-areas:
                     "usage pack-validity"
                     "utilities recharge"
-                    "top-banner top-banner"
                     "promo-ad-1 promo-ad-2"
                     "promo promo"
                     "quick-links quick-links"
+                    "top-banner top-banner"
                     "map human-banner";
             }
         }
@@ -338,11 +338,11 @@
                     "pack-validity"
                     "utilities"
                     "recharge"
-                    "top-banner"
                     "promo-ad-1"
                     "promo-ad-2"
                     "promo"
                     "quick-links"
+                    "top-banner"
                     "map"
                     "human-banner";
             }
@@ -385,34 +385,74 @@
 
         .banner-wrapper {
             grid-area: top-banner;
-            min-height: 200px;
+            min-height: 150px; 
+            display: flex;
+            align-items: center;
         }
 
         .carousel-container {
             position: relative;
             width: 100%;
-            height: 70%;
+            height: 150px;
             overflow: hidden;
         }
 
         .carousel-slides {
             display: flex;
-            width: 150%;
+            width: 150%; 
             height: 100%;
             transition: transform 0.5s ease-in-out;
         }
 
         .carousel-slide {
-            min-width: 90%; 
+            min-width: 100%;
             height: 100%;
             flex-shrink: 0;
+            position: relative; 
         }
 
         .carousel-slide img {
             width: 100%;
-            height: 50%;
-            object-fit: cover;
+            height: 100%;
+            object-fit: contain; 
             display: block;
+            background-color: var(--antel-primary-blue); 
+        }
+
+        .carousel-text-overlay { /* Updated to be fixed within container */
+            position: absolute;
+            top: 50%;
+            left: 20px; /* Aligned to the left */
+            transform: translateY(-50%);
+            color: var(--antel-white);
+            text-align: left; /* Aligned text to the left */
+            z-index: 20; /* Ensures it's above the slides and arrows */
+            max-width: 40%;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5); /* Added for readability */
+        }
+        
+        .carousel-text-overlay h3 { 
+            margin: 0 0 0.5rem 0;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .carousel-text-overlay p { 
+            margin: 0;
+            font-size: 1em;
+            line-height: 1.4;
+        }
+
+        /* Added a subtle overlay to the images for better text readability */
+        .carousel-slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.2);
+            z-index: 1;
         }
 
         .carousel-button {
@@ -422,11 +462,11 @@
             background-color: rgba(0, 0, 0, 0.5);
             color: white;
             border: none;
-            padding: 1rem 1.2rem;
+            padding: 0.5rem 0.7rem;
             cursor: pointer;
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             border-radius: 50%;
-            z-index: 10;
+            z-index: 25; /* Higher z-index to be on top of the text */
             transition: background-color 0.3s ease, transform 0.3s ease;
         }
 
@@ -436,26 +476,26 @@
         }
 
         .carousel-button.prev {
-            left: 1rem;
+            left: 0.5rem;
         }
 
         .carousel-button.next {
-            right: 1rem;
+            right: 0.5rem;
         }
 
         .carousel-indicators {
             position: absolute;
-            bottom: 1rem;
+            bottom: 0.5rem;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
-            gap: 0.5rem;
-            z-index: 10;
+            gap: 0.3rem;
+            z-index: 25; /* Higher z-index to be on top of the text */
         }
 
         .indicator-dot {
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
             background-color: rgba(255, 255, 255, 0.5);
             border-radius: 50%;
             cursor: pointer;
@@ -766,7 +806,6 @@
 
         .map-section {
             grid-area: map;
-            height: 50vh;
             padding: 2rem;
             display: flex;
             flex-direction: column;
@@ -793,8 +832,7 @@
 
         .human-banner-card {
             grid-area: human-banner;
-            height: 50vh;
-            padding: 2rem;
+            padding: 0;
             overflow: hidden;
         }
 
@@ -905,6 +943,10 @@
                             <button class="carousel-button prev" aria-label="Previous slide"><i class="fas fa-chevron-left"></i></button>
                             <button class="carousel-button next" aria-label="Next slide"><i class="fas fa-chevron-right"></i></button>
                             <div class="carousel-indicators"></div>
+                            <div class="carousel-text-overlay">
+                                <h3>Welcome to Angola Telecom!</h3>
+                                <p>Discover our latest offers and stay connected effortlessly in Angola.</p>
+                            </div>
                         </div>
                     </section>
                 </section>
@@ -945,7 +987,7 @@
                 </section>
                 
                 <section class="dashboard-widget map-section">
-                    <h3 class="widget-title">Find Your Nearest Angola Telecom Store</h3>
+                    <h3 class="widget-title">Find Your Nearest Angola Telecom Store in Angola</h3>
                     <div class="map-container">
                         <img src="images/Antel_Location_ .png" alt="Map of Angola Telecom store locations" />
                     </div>
