@@ -15,6 +15,7 @@
             --antel-primary-blue: #004687;
             --antel-primary-blue-light: #0079c0;
             --antel-primary-blue-dark: #58799f;
+            --antel-turquoise: #00796B;
             --antel-white: #FAFAFA;
             --antel-text-dark: #333;
             --antel-light-gray: #f5f5f5;
@@ -94,7 +95,6 @@
             height: 80px;
             width: 100px;
             display: block;
-            /* Filter to make the logo white */
             filter: brightness(0) invert(1);
         }
         
@@ -104,7 +104,6 @@
             overflow: hidden;
         }
 
-        /* Logout button in header */
         .header-logout-button {
             background: none;
             border: none;
@@ -124,19 +123,25 @@
             background-color: rgba(255, 255, 255, 0.15);
         }
 
+        /* --- SIDEBAR AND MAIN CONTENT LAYOUT FIX --- */
         .dashboard-container {
             display: flex;
-            min-height: 100vh;
+            min-height: calc(100vh - 100px); 
         }
 
         .dashboard-sidebar {
-            width: 280px;
+            width: 280px; 
             background-color: var(--antel-white);
             padding: 1.5rem;
             box-shadow: 2px 0 10px rgba(0,0,0,0.05);
             display: flex;
             flex-direction: column;
             transition: width var(--transition-speed);
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            flex-shrink: 0; /* Prevents sidebar from shrinking */
         }
         
         .dashboard-sidebar .logo-placeholder {
@@ -217,6 +222,9 @@
             font-weight: 500;
             text-decoration: none;
             transition: all var(--transition-speed);
+            width: 100%;
+            box-sizing: border-box;
+            white-space: nowrap; 
         }
 
         .button-link:hover {
@@ -241,7 +249,6 @@
             text-align: center;
         }
 
-        /* New Sidebar Promos */
         .sidebar-promos {
             margin-top: auto; 
             display: flex;
@@ -278,32 +285,32 @@
         .dashboard-content {
             flex-grow: 1;
             padding: 2.5rem;
+            overflow-x: hidden; /* Prevents horizontal scroll from large content */
         }
 
-        /* --- Main Grid Layout --- */
+        /* --- MAIN GRID LAYOUT CHANGES --- */
         .dashboard-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 2rem;
             grid-template-areas:
-                "top-banner top-banner"
-                "usage pack-validity"
-                "promo-ad-1 promo-ad-2"
-                "recharge utilities"
-                "promo promo"
-                "quick-links quick-links"
-                "map human-banner";
+                "usage        pack-validity"
+                "utilities    recharge" 
+                "top-banner   top-banner"
+                "promo-ad-1   promo-ad-2"
+                "promo        promo"
+                "quick-links  quick-links"
+                "map          human-banner";
         }
         
         @media (max-width: 1600px) {
             .dashboard-grid {
                 grid-template-columns: 1fr 1fr;
                 grid-template-areas:
-                    "top-banner top-banner"
                     "usage pack-validity"
+                    "utilities recharge"
+                    "top-banner top-banner"
                     "promo-ad-1 promo-ad-2"
-                    "recharge recharge"
-                    "utilities utilities"
                     "promo promo"
                     "quick-links quick-links"
                     "map human-banner";
@@ -318,6 +325,8 @@
                 width: 100%;
                 padding: 1rem;
                 box-shadow: none;
+                position: static;
+                height: auto;
             }
             .dashboard-content {
                 padding: 1.5rem;
@@ -325,13 +334,13 @@
             .dashboard-grid {
                 grid-template-columns: 1fr;
                 grid-template-areas:
-                    "top-banner"
                     "usage"
                     "pack-validity"
+                    "utilities"
+                    "recharge"
+                    "top-banner"
                     "promo-ad-1"
                     "promo-ad-2"
-                    "recharge"
-                    "utilities"
                     "promo"
                     "quick-links"
                     "map"
@@ -369,47 +378,39 @@
         .banner {
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: var(--box-shadow-light);
+            box-shadow: none; 
             position: relative;
+            padding: 0;
         }
 
-        .banner.top-banner {
+        .banner-wrapper {
             grid-area: top-banner;
-            /* Increased height to ensure images are not cropped */
-            height: 90vh; 
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            min-height: 200px;
         }
 
-        /* Carousel specific styles */
         .carousel-container {
             position: relative;
             width: 100%;
-            height: 100%;
-            overflow: hidden; /* Hides images that are outside the container */
+            height: 70%;
+            overflow: hidden;
         }
 
         .carousel-slides {
             display: flex;
             width: 150%;
             height: 100%;
-            /* Smooth transition for the slide movement */
             transition: transform 0.5s ease-in-out;
         }
 
         .carousel-slide {
-            /* Makes each slide take up the full width of the container */
             min-width: 90%; 
             height: 100%;
-            /* Prevents slides from shrinking */
             flex-shrink: 0;
         }
 
         .carousel-slide img {
             width: 100%;
-            height: 100%;
-            /* Ensures image fills the container without distortion (may crop) */
+            height: 50%;
             object-fit: cover;
             display: block;
         }
@@ -470,7 +471,6 @@
             background-color: rgba(255, 255, 255, 0.8);
         }
 
-        /* New Promo Ad Card Styling */
         .promo-ad-card {
             border-radius: 15px;
             overflow: hidden;
@@ -500,7 +500,6 @@
             height: 35vh;
         }
 
-        /* --- Specific Widget Styles --- */
         .usage-summary-card {
             grid-area: usage;
             display: flex;
@@ -763,9 +762,8 @@
         .link-icon {
             font-size: 2.5rem;
             color: var(--antel-primary-blue);
-            }
+        }
 
-        /* Map and Human Banner Cards */
         .map-section {
             grid-area: map;
             height: 50vh;
@@ -836,6 +834,7 @@
                 <li><a href="/support.html" class="button-link"><i class="fas fa-headset"></i> Support</a></li>
                 <li><a href="/rewards.html" class="button-link"><i class="fas fa-gift"></i> Rewards</a></li>
                 <li><a href="/my_devices.html" class="button-link"><i class="fas fa-mobile-alt"></i> My Devices</a></li>
+                <li><a href="#" id="logoutButton" class="button-link"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
             </ul>
             <div class="sidebar-promos">
                 <a href="#"><img src="images/promo1.png" alt="Promotional Offer 1" class="sidebar-promo-img"></a>
@@ -845,18 +844,6 @@
         
         <main class="dashboard-content">
             <div class="dashboard-grid">
-                <section class="banner top-banner">
-                    <div class="carousel-container">
-                        <div class="carousel-slides">
-                            <div class="carousel-slide"><img src="images/logo.png" alt="Angola Telecom Promotional Banner 1" /></div>
-                            <div class="carousel-slide"><img src="images/advertisement.png" alt="Angola Telecom Promotional Banner 2" /></div>
-                        </div>
-                        <button class="carousel-button prev" aria-label="Previous slide"><i class="fas fa-chevron-left"></i></button>
-                        <button class="carousel-button next" aria-label="Next slide"><i class="fas fa-chevron-right"></i></button>
-                        <div class="carousel-indicators"></div>
-                    </div>
-                </section>
-                
                 <section class="dashboard-widget usage-summary-card">
                     <h2 class="widget-title">Your Usage</h2>
                     <div class="usage-item">
@@ -875,23 +862,6 @@
                         <a href="/active_plans.html" class="outlined-button">View Details</a>
                         <a href="#" class="primary-button">Recharge Now</a>
                     </div>
-                </section>
-
-                <section class="promo-ad-card promo-ad-1">
-                    <a href="#"><img src="images/promo5.png" alt="Promotional Offer 5" /></a>
-                </section>
-
-                <section class="promo-ad-card promo-ad-2">
-                    <a href="#"><img src="images/promo6.png" alt="Promotional Offer 6" /></a>
-                </section>
-                
-                <section class="recharge-banner">
-                    <div class="recharge-banner-content">
-                        <h4>Special Offer</h4>
-                        <p>Get 100GB at no extra cost when you recharge with ₹1198.</p>
-                        <a href="#" class="primary-button">Recharge Now</a>
-                    </div>
-                    <span class="promo-graphic">🚀</span>
                 </section>
 
                 <section class="dashboard-widget utilities-card">
@@ -914,6 +884,37 @@
                             <span>Mobile Postpaid</span>
                         </a>
                     </div>
+                </section>
+
+                <section class="recharge-banner">
+                    <div class="recharge-banner-content">
+                        <h4>Special Offer</h4>
+                        <p>Get 100GB at no extra cost when you recharge with ₹1198.</p>
+                        <a href="#" class="primary-button">Recharge Now</a>
+                    </div>
+                    <span class="promo-graphic">🚀</span>
+                </section>
+                
+                <section class="dashboard-widget banner-wrapper">
+                    <section class="banner top-banner">
+                        <div class="carousel-container">
+                            <div class="carousel-slides">
+                                <div class="carousel-slide"><img src="images/logo.png" alt="Angola Telecom Promotional Banner 1" /></div>
+                                <div class="carousel-slide"><img src="images/advertisement.png" alt="Angola Telecom Promotional Banner 2" /></div>
+                            </div>
+                            <button class="carousel-button prev" aria-label="Previous slide"><i class="fas fa-chevron-left"></i></button>
+                            <button class="carousel-button next" aria-label="Next slide"><i class="fas fa-chevron-right"></i></button>
+                            <div class="carousel-indicators"></div>
+                        </div>
+                    </section>
+                </section>
+                
+                <section class="promo-ad-card promo-ad-1">
+                    <a href="#"><img src="images/promo5.png" alt="Promotional Offer 5" /></a>
+                </section>
+
+                <section class="promo-ad-card promo-ad-2">
+                    <a href="#"><img src="images/promo6.png" alt="Promotional Offer 6" /></a>
                 </section>
                 
                 <section class="promo-banner-large">
