@@ -129,6 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const isDashboardPage = window.location.pathname.startsWith('/dashboard.html') ||
                             window.location.pathname.startsWith('/my_account.html') ||
                             window.location.pathname.startsWith('/recharge_history.html') ||
+                            window.location.pathname.startsWith('/active_plans.html') ||
                             window.location.pathname.startsWith('/my_devices.html') ||
                             window.location.pathname.startsWith('/rewards.html') ||
                             window.location.pathname.startsWith('/support.html');
@@ -146,8 +147,11 @@ document.addEventListener('DOMContentLoaded', () => {
         // Centralized fetch function for all dashboard data
         const fetchAllDashboardData = async () => {
             // Show loading state immediately for a better user experience
-            document.getElementById('sidebarUserName').textContent = 'Loading...';
-            document.getElementById('sidebarUserMobile').textContent = '';
+            const sidebarUserName = document.getElementById('sidebarUserName');
+            const sidebarUserMobile = document.getElementById('sidebarUserMobile');
+            
+            if (sidebarUserName) sidebarUserName.textContent = 'Loading...';
+            if (sidebarUserMobile) sidebarUserMobile.textContent = '';
 
             try {
                 const response = await fetch('/api/user/all-dashboard-data', {
@@ -189,17 +193,94 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById('dataLeft').textContent = `${currentUser.dataBalance || 'N/A'}GB`;
                 document.getElementById('packValidity').textContent = currentUser.packValidity || 'N/A';
                 document.getElementById('callStatus').textContent = currentUser.callStatus || 'N/A';
+                // Add this code inside the if (window.location.pathname.endsWith('/dashboard.html')) block
+
+// --- Carousel Logic (Specific to dashboard) ---
+const slidesContainer = document.querySelector('.carousel-slides');
+const slides = document.querySelectorAll('.carousel-slide');
+const prevButton = document.querySelector('.carousel-button.prev');
+const nextButton = document.querySelector('.carousel-button.next');
+const indicatorsContainer = document.querySelector('.carousel-indicators');
+let currentIndex = 0;
+const totalSlides = slides.length;
+let autoSlideInterval;
+
+// Create indicators and set up event listeners
+if (slidesContainer && slides.length > 0) {
+    for (let i = 0; i < totalSlides; i++) {
+        const dot = document.createElement('div');
+        dot.classList.add('indicator-dot');
+        dot.dataset.index = i;
+        if (i === 0) dot.classList.add('active');
+        indicatorsContainer.appendChild(dot);
+    }
+    const indicatorDots = document.querySelectorAll('.indicator-dot');
+
+    function updateCarousel() {
+        slidesContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+        indicatorDots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentIndex);
+        });
+    }
+
+    function goToSlide(index) {
+        currentIndex = index;
+        updateCarousel();
+        resetAutoSlide();
+    }
+
+    function showNextSlide() {
+        currentIndex = (currentIndex + 1) % totalSlides;
+        updateCarousel();
+    }
+
+    function showPrevSlide() {
+        currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+        updateCarousel();
+    }
+
+    function startAutoSlide() {
+        autoSlideInterval = setInterval(showNextSlide, 5000);
+    }
+
+    function resetAutoSlide() {
+        clearInterval(autoSlideInterval);
+        startAutoSlide();
+    }
+
+    if (prevButton) prevButton.addEventListener('click', showPrevSlide);
+    if (nextButton) nextButton.addEventListener('click', showNextSlide);
+
+    if (indicatorsContainer) {
+        indicatorsContainer.addEventListener('click', (e) => {
+            if (e.target.classList.contains('indicator-dot')) {
+                const index = parseInt(e.target.dataset.index);
+                goToSlide(index);
+            }
+        });
+    }
+
+    const carouselContainer = document.querySelector('.carousel-container');
+    if (carouselContainer) {
+        carouselContainer.addEventListener('mouseenter', () => clearInterval(autoSlideInterval));
+        carouselContainer.addEventListener('mouseleave', startAutoSlide);
+    }
+
+    // Initialize the carousel
+    updateCarousel();
+    startAutoSlide();
+}
             }
 
             // My Account Page
             if (window.location.pathname.endsWith('/my_account.html')) {
                 document.getElementById('accountUserName').textContent = currentUser.name || 'N/A';
                 document.getElementById('accountUserMobile').textContent = currentUser.mobileNumber || 'N/A';
-                document.getElementById('accountUserEmail').textContent = 'example@antel.com'; 
-                document.getElementById('accountUserServiceType').textContent = 'Prepaid';
-                document.getElementById('smsAlertsStatus').textContent = 'Enabled';
-                document.getElementById('emailNotificationStatus').textContent = 'Enabled';
-                document.getElementById('promoOffersStatus').textContent = 'Disabled';
+                document.getElementById('accountUserEmail').textContent = currentUser.email || 'N/A';
+                document.getElementById('accountUserServiceType').textContent = currentUser.serviceType || 'N/A';
+                document.getElementById('smsAlertsStatus').textContent = currentUser.smsAlertsStatus ? 'Enabled' : 'Disabled';
+                document.getElementById('emailNotificationStatus').textContent = currentUser.emailNotificationStatus ? 'Enabled' : 'Disabled';
+                document.getElementById('promoOffersStatus').textContent = currentUser.promoOffersStatus ? 'Enabled' : 'Disabled';
             }
 
             // Recharge History Page
@@ -224,6 +305,69 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     rechargeTableBody.innerHTML = '';
                     noRechargesMessage.style.display = 'block';
+                }
+            }
+            
+            // Active Plans Page
+            if (window.location.pathname.endsWith('/active_plans.html')) {
+                const activePlansContainer = document.getElementById('activePlansContainer');
+                const noPlansMessage = document.getElementById('noPlansMessage');
+                
+                const plans = allUserData.activePlans || [];
+                if (plans.length > 0) {
+                    activePlansContainer.innerHTML = '';
+                    plans.forEach(plan => {
+                        const planCard = document.createElement('div');
+                        planCard.className = 'plan-card';
+                        planCard.innerHTML = `
+                            <div class="plan-card-header">
+                                <h3>Current Plan: ${plan.planName}</h3>
+                                <span class="status">${plan.status}</span>
+                            </div>
+                            <div class="plan-details-grid">
+                                <div class="detail-item">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <div>
+                                        <p class="label">Validity</p>
+                                        <p class="value">${plan.validity}</p>
+                                    </div>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-phone-alt"></i>
+                                    <div>
+                                        <p class="label">Calls</p>
+                                        <p class="value">${plan.callBenefit}</p>
+                                    </div>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-sms"></i>
+                                    <div>
+                                        <p class="label">SMS</p>
+                                        <p class="value">${plan.smsBenefit}</p>
+                                    </div>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-chart-bar"></i>
+                                    <div>
+                                        <p class="label">Data</p>
+                                        <p class="value">${plan.dataBenefit} (${plan.dataUsed} used)</p>
+                                        <div class="progress-bar-container">
+                                            <div class="progress-bar-fill" style="width: ${plan.dataUsagePercentage}%;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="button-group">
+                                <a href="#" class="primary-button">Recharge Now</a>
+                                <a href="#" class="secondary-button">Change Plan</a>
+                            </div>
+                        `;
+                        activePlansContainer.appendChild(planCard);
+                    });
+                    noPlansMessage.style.display = 'none';
+                } else {
+                    activePlansContainer.innerHTML = '';
+                    noPlansMessage.style.display = 'block';
                 }
             }
 
